@@ -6,7 +6,12 @@
       @input="onSearchTermChanged($event.target.value)"
     />
     <span v-if="this.isTyping">Waiting...</span>
-    <ul class="location-search__list"></ul>
+    <ul class="location-search__list">
+      <li v-for="result in this.searchResults" :key="result.woeid">
+        <h3>{{ result.title }}</h3>
+        <span>{{ result.coords.latt }}, {{ result.coords.long }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -25,6 +30,7 @@ export default {
   methods: {
     requestSearch: debounce(function(term) {
       this.isTyping = false;
+      this.searchResults = null;
       searchLocation(term).then((results) => (this.searchResults = results));
     }, SEARCH_INPUT_DELAY),
 

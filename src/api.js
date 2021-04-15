@@ -13,7 +13,7 @@ export const searchLocation = (str) => {
         title: result.title,
         woeid: result.woeid,
         coords: {
-          lat: parseFloat(result.latt_long.split(",")[0]),
+          latt: parseFloat(result.latt_long.split(",")[0]),
           long: parseFloat(result.latt_long.split(",")[1])
         }
       }))
