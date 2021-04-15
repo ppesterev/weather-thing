@@ -8,8 +8,7 @@
     <span v-if="this.isTyping">Waiting...</span>
     <ul class="location-search__list">
       <li v-for="result in this.searchResults" :key="result.woeid">
-        <h3>{{ result.title }}</h3>
-        <span>{{ result.coords.latt }}, {{ result.coords.long }}</span>
+        <LocationSearchItem :searchResult="result" />
       </li>
     </ul>
   </div>
@@ -19,9 +18,12 @@
 import { debounce } from "../utils";
 import { searchLocation } from "../api";
 
+import LocationSearchItem from "./LocationSearchItem.vue";
+
 const SEARCH_INPUT_DELAY = 600;
 
 export default {
+  components: { LocationSearchItem },
   data: () => ({
     isTyping: false,
     searchResults: null
