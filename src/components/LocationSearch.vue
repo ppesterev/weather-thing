@@ -12,18 +12,20 @@
 
 <script>
 import { debounce } from "../utils";
+import { searchLocation } from "../api";
 
 const SEARCH_INPUT_DELAY = 600;
 
 export default {
   data: () => ({
-    isTyping: false
+    isTyping: false,
+    searchResults: null
   }),
 
   methods: {
     requestSearch: debounce(function(term) {
       this.isTyping = false;
-      console.log(`${term} search requested`);
+      searchLocation(term).then((results) => (this.searchResults = results));
     }, SEARCH_INPUT_DELAY),
 
     onSearchTermChanged(term) {
