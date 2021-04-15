@@ -23,10 +23,31 @@ export default {
 
       const NS = latt > 0 ? "N" : "S";
       const EW = long > 0 ? "E" : "W";
-      return `${latt.toFixed(2)}${NS}, ${long.toFixed(2)}${EW}`;
+      return `${Math.abs(latt).toFixed(2)} ${NS}, \
+${Math.abs(long).toFixed(2)} ${EW}`;
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.search-result {
+  padding: 5px;
+
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.5);
+}
+
+.search-result__title {
+  margin: 0 0 5px 0;
+
+  font-size: 1em;
+}
+
+.search-result__position {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: grey;
+}
+</style>

@@ -7,7 +7,11 @@
     />
     <span v-if="this.isTyping">Waiting...</span>
     <ul class="location-search__list">
-      <li v-for="result in this.searchResults" :key="result.woeid">
+      <li
+        class="location-search__item"
+        v-for="result in this.searchResults"
+        :key="result.woeid"
+      >
         <LocationSearchItem :searchResult="result" />
       </li>
     </ul>
@@ -48,4 +52,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.location-search {
+  padding: 10px;
+}
+
+.location-search__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.location-search__item {
+  margin-bottom: 5px;
+}
+</style>
