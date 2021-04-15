@@ -1,18 +1,20 @@
 <template>
   <div class="app">
-    <div class="app__panel app__search"></div>
+    <LocationSearch class="app__panel app__location-search" />
     <div class="app__panel app__tracked-list"></div>
     <Map class="app__panel app__map" />
     <div class="app__panel app__location-details"></div>
-    <footer class="app__footer">(c) ppesterev</footer>
+    <footer class="app__footer">&copy; ppesterev</footer>
   </div>
 </template>
 
 <script>
+import LocationSearch from "./LocationSearch.vue";
 import Map from "./Map.vue";
+
 export default {
   name: "App",
-  components: { Map },
+  components: { LocationSearch, Map },
   data: () => ({})
 };
 </script>
