@@ -12,7 +12,10 @@
         v-for="result in this.searchResults"
         :key="result.woeid"
       >
-        <LocationSearchItem :searchResult="result" />
+        <LocationSearchItem
+          :searchResult="result"
+          @track-location="$emit('track-location', $event)"
+        />
       </li>
     </ul>
   </div>
@@ -28,6 +31,7 @@ const SEARCH_INPUT_DELAY = 600;
 
 export default {
   components: { LocationSearchItem },
+
   data: () => ({
     isTyping: false,
     searchResults: null

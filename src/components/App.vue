@@ -1,6 +1,9 @@
 <template>
   <div class="app">
-    <LocationSearch class="app__panel app__location-search" />
+    <LocationSearch
+      class="app__panel app__location-search"
+      v-on:track-location="onLocationTracked"
+    />
     <div class="app__panel app__tracked-list"></div>
     <Map class="app__panel app__map" />
     <div class="app__panel app__location-details"></div>
@@ -15,7 +18,12 @@ import Map from "./Map.vue";
 export default {
   name: "App",
   components: { LocationSearch, Map },
-  data: () => ({})
+  data: () => ({}),
+  methods: {
+    onLocationTracked(woeid) {
+      console.log(`${woeid} added to tracked locations`);
+    }
+  }
 };
 </script>
 

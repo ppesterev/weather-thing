@@ -1,9 +1,12 @@
 <template>
   <div class="search-result">
-    <h3 class="search-result__title">{{ this.searchResult.title }}</h3>
+    <h3 class="search-result__title">{{ searchResult.title }}</h3>
     <span class="search-result__position">{{
       this.getCoordinateString()
     }}</span>
+    <button @click="$emit('track-location', searchResult.woeid)">
+      Track
+    </button>
   </div>
 </template>
 
@@ -36,7 +39,7 @@ ${Math.abs(long).toFixed(2)} ${EW}`;
 
   background-color: white;
   border-radius: 5px;
-  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.2);
 }
 
 .search-result__title {
