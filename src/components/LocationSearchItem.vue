@@ -1,5 +1,5 @@
 <template>
-  <div class="search-result">
+  <div class="search-result" draggable @dragstart="$emit('drag-search-result')">
     <h3 class="search-result__title">{{ searchResult.title }}</h3>
     <span class="search-result__position">{{
       this.getCoordinateString()
@@ -38,8 +38,16 @@ ${Math.abs(long).toFixed(2)} ${EW}`;
   padding: 5px;
 
   background-color: white;
-  border-radius: 5px;
   box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.2);
+  cursor: grab;
+}
+
+.search-result:hover {
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.search-result:active {
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.4);
 }
 
 .search-result__title {

@@ -61,7 +61,7 @@ body {
 }
 
 .app__panel {
-  background-color: hsl(180, 10%, 95%);
+  background-color: whitesmoke;
   border-radius: 5px;
   box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2),
     inset -2px -2px 3px 0 rgba(255, 255, 255, 0.6);
