@@ -15,13 +15,19 @@
 import LocationSearch from "./LocationSearch.vue";
 import Map from "./Map.vue";
 
+import { getLocationDetails } from "../api";
+
 export default {
   name: "App",
   components: { LocationSearch, Map },
-  data: () => ({}),
+  data: () => ({
+    trackedLocations: []
+  }),
   methods: {
     onLocationTracked(woeid) {
-      console.log(`${woeid} added to tracked locations`);
+      getLocationDetails(woeid).then((details) =>
+        this.trackedLocations.push(details)
+      );
     }
   }
 };

@@ -19,3 +19,22 @@ export const searchLocation = (str) => {
       }))
     );
 };
+
+export const getLocationDetails = (woeid) => {
+  return axios.get(getFullUrl(`location/${woeid}`)).then((response) => ({
+    location: {
+      woeid,
+      title: response.data.title,
+      coords: {
+        latt: parseFloat(response.data.latt_long.split(",")[0]),
+        long: parseFloat(response.data.latt_long.split(",")[1])
+      }
+    },
+    weather: response.data.consolidated_weather.map((weatherDay) => ({
+      date: new Date(weatherDay.applicable_date),
+      temp: weatherDay.the_temp,
+      weatherType: weatherDay.weather_state_name,
+      icon: `${BASE_URL}static/img/weather/${weatherDay.weather_state_abbr}.svg`
+    }))
+  }));
+};
