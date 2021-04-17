@@ -4,7 +4,10 @@
       class="app__panel app__location-search"
       v-on:track-location="onLocationTracked"
     />
-    <div class="app__panel app__tracked-list"></div>
+    <TrackedLocationsList
+      class="app__panel app__tracked-list"
+      :trackedLocations="trackedLocations"
+    />
     <Map class="app__panel app__map" />
     <div class="app__panel app__location-details"></div>
     <footer class="app__footer">&copy; ppesterev</footer>
@@ -13,13 +16,14 @@
 
 <script>
 import LocationSearch from "./LocationSearch.vue";
+import TrackedLocationsList from "./TrackedLocationsList.vue";
 import Map from "./Map.vue";
 
 import { getLocationDetails } from "../api";
 
 export default {
   name: "App",
-  components: { LocationSearch, Map },
+  components: { LocationSearch, Map, TrackedLocationsList },
   data: () => ({
     trackedLocations: []
   }),
@@ -48,6 +52,7 @@ html {
 body {
   margin: 0;
   height: 100vh;
+  background-color: whitesmoke;
 }
 
 .app {
@@ -64,13 +69,15 @@ body {
   height: 100%;
   margin: 0 auto;
   padding: 10px;
+
+  background-color: whitesmoke;
 }
 
 .app__panel {
   background-color: whitesmoke;
   border-radius: 5px;
-  box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2),
-    inset -2px -2px 3px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: inset 2px 2px 3px -1px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 3px -1px rgba(255, 255, 255, 0.6);
 }
 
 .app__map {
