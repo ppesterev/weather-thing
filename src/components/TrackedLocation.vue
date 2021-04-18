@@ -17,7 +17,9 @@
       Loading...
     </div>
     <div class="tracked-location__controls" v-if="!isLoading">
-      <button>Untrack</button>
+      <button @click="$emit('untrack-location', location.woeid)">
+        Untrack
+      </button>
       <button>View forecast</button>
     </div>
   </article>

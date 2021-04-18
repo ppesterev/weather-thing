@@ -7,6 +7,7 @@
     <TrackedLocationsList
       class="app__panel app__tracked-list"
       :trackedLocations="trackedLocations"
+      @untrack-location="onLocationUntracked"
     />
     <WorldMap
       class="app__panel app__map"
@@ -48,6 +49,13 @@ export default {
       this.trackedLocations = [...this.trackedLocations, newTrackedLocation];
       this.updateTrackedLocation(newTrackedLocation);
     },
+
+    onLocationUntracked(woeid) {
+      this.trackedLocations = this.trackedLocations.filter(
+        (tracked) => tracked.location.woeid !== woeid
+      );
+    },
+
     updateTrackedLocation(tracked) {
       tracked.isLoading = true;
       getLocationDetails(tracked.location.woeid).then((details) => {
