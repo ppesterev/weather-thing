@@ -50,12 +50,16 @@ export default {
   },
 
   mounted() {
-    this.leafletMap = L.map("leaflet-map", { center: [0, 0], zoom: 2 });
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}", {
-      foo: "bar",
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(this.leafletMap);
+    this.leafletMap = L.map("leaflet-map", { center: [10, 10], zoom: 2 });
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: "abcd",
+        maxZoom: 19
+      }
+    ).addTo(this.leafletMap);
     this.markers.forEach((marker) => marker.addTo(this.leafletMap));
     this.fitMapToMarkers();
   },
@@ -63,6 +67,7 @@ export default {
   methods: {
     fitMapToMarkers() {
       if (!this.trackedLocations || this.trackedLocations.length === 0) {
+        this.leafletMap.setView([10, 10], 2);
         return;
       }
 

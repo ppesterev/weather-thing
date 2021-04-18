@@ -14,7 +14,13 @@
       :trackedLocations="trackedLocations"
     />
     <div class="app__panel app__location-details"></div>
-    <footer class="app__footer">&copy; ppesterev</footer>
+    <footer class="app__footer">
+      <div>&copy; ppesterev</div>
+      <div>
+        Weather data kindly provided by
+        <a href="https://www.metaweather.com/">MetaWeather</a>
+      </div>
+    </footer>
   </div>
 </template>
 
