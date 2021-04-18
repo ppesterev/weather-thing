@@ -10,7 +10,7 @@
         height="100"
       />
       <strong class="tracked-location__temp"
-        >{{ Math.floor(weather.temp) }}&deg; C</strong
+        >{{ Math.floor(weather.temp) }} &deg;C</strong
       >
     </div>
     <div class="tracked-location__loading" v-else-if="isLoading">

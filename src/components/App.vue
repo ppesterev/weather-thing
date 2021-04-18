@@ -119,20 +119,31 @@ body {
 
 .app {
   display: grid;
-  grid-template-rows: 5fr 2fr auto;
-  grid-template-columns: 1fr 1fr 3fr;
+  grid-template-rows: auto 500px 1fr auto;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "search tracked map"
-    "details details details"
-    "footer footer footer";
+    "search tracked"
+    "map map"
+    "details details"
+    "footer footer";
   grid-gap: 10px;
 
-  max-width: 1440px;
   height: 100%;
   margin: 0 auto;
   padding: 10px;
 
   background-color: whitesmoke;
+}
+
+@media (min-width: 1200px) {
+  .app {
+    grid-template-rows: 5fr 2fr auto;
+    grid-template-columns: 1fr 1fr 3fr;
+    grid-template-areas:
+      "search tracked map"
+      "details details details"
+      "footer footer footer";
+  }
 }
 
 .app__panel {
