@@ -2,18 +2,25 @@
   <div class="app">
     <LocationSearch
       class="app__panel app__location-search"
-      v-on:track-location="onLocationTracked"
+      @track-location="onLocationTracked"
     />
     <TrackedLocationsList
       class="app__panel app__tracked-list"
       :trackedLocations="trackedLocations"
       @untrack-location="onLocationUntracked"
+      @expand-location="onLocationExpanded"
     />
     <WorldMap
       class="app__panel app__map"
       :trackedLocations="trackedLocations"
     />
-    <div class="app__panel app__location-details"></div>
+    <LocationDetails
+      class="app__panel app__location-details"
+      v-if="expandedLocation"
+      :location="expandedLocation.location"
+      :forecast="expandedLocation.forecast"
+      :isLoading="expandedLocation.isLoading"
+    />
     <footer class="app__footer">
       <div>&copy; ppesterev</div>
       <div>
@@ -28,16 +35,23 @@
 import LocationSearch from "./LocationSearch.vue";
 import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
+import LocationDetails from "./LocationDetails.vue";
 
 import { getLocationDetails } from "../api";
 
 export default {
   name: "App",
 
-  components: { LocationSearch, WorldMap, TrackedLocationsList },
+  components: {
+    LocationSearch,
+    WorldMap,
+    TrackedLocationsList,
+    LocationDetails
+  },
 
   data: () => ({
-    trackedLocations: []
+    trackedLocations: [],
+    expandedLocation: null
   }),
 
   methods: {
@@ -48,7 +62,7 @@ export default {
       ) {
         return;
       }
-      const newTrackedLocation = this.trackedLocations[id] || {
+      const newTrackedLocation = {
         location,
         forecast: null,
         isLoading: true,
@@ -62,6 +76,15 @@ export default {
       this.trackedLocations = this.trackedLocations.filter(
         (tracked) => tracked.location.woeid !== woeid
       );
+    },
+
+    onLocationExpanded(woeid) {
+      const expandedLocation = this.trackedLocations.find(
+        (tracked) => tracked.location.woeid === woeid
+      );
+      if (expandedLocation) {
+        this.expandedLocation = expandedLocation;
+      }
     },
 
     updateTrackedLocation(tracked) {

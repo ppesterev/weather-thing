@@ -20,7 +20,9 @@
       <button @click="$emit('untrack-location', location.woeid)">
         Untrack
       </button>
-      <button>View forecast</button>
+      <button @click="$emit('expand-location', location.woeid)">
+        View forecast
+      </button>
     </div>
   </article>
 </template>

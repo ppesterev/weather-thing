@@ -19,6 +19,7 @@ const parseLocation = (locationData) => {
 };
 
 const parseWeather = (weatherData) => ({
+  id: weatherData.id,
   date: new Date(weatherData.applicable_date),
   temp: weatherData.the_temp,
   weatherType: weatherData.weather_state_name,

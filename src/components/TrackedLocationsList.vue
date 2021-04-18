@@ -11,6 +11,7 @@
           :weather="trackedItem.forecast ? trackedItem.forecast[0] : null"
           :isLoading="trackedItem.isLoading"
           @untrack-location="$emit('untrack-location', $event)"
+          @expand-location="$emit('expand-location', $event)"
         />
       </li>
     </ul>
