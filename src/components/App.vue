@@ -28,10 +28,13 @@ export default {
     trackedLocations: []
   }),
   methods: {
-    onLocationTracked(woeid) {
-      getLocationDetails(woeid).then((details) =>
-        this.trackedLocations.push(details)
-      );
+    onLocationTracked(location) {
+      const newTrackedLocation = { location, forecast: null, isLoading: true };
+      this.trackedLocations.push(newTrackedLocation);
+      getLocationDetails(location.woeid).then((details) => {
+        newTrackedLocation.forecast = details.forecast;
+        newTrackedLocation.isLoading = false;
+      });
     }
   }
 };

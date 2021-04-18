@@ -33,7 +33,7 @@ export const searchLocation = (str) => {
 
 export const getLocationDetails = (woeid) => {
   return axios.get(getFullUrl(`location/${woeid}`)).then((response) => ({
-    ...parseLocation(response.data),
+    location: parseLocation(response.data),
     forecast: response.data.consolidated_weather
       .map(parseWeather)
       .sort((a, b) => a.date.getTime() - b.date.getTime())

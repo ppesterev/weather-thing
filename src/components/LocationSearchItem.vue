@@ -4,7 +4,7 @@
     <span class="search-result__position">{{
       this.getCoordinateString()
     }}</span>
-    <button @click="$emit('track-location', searchResult.woeid)">
+    <button @click="$emit('track-location', searchResult)">
       Track
     </button>
   </div>
