@@ -68,7 +68,7 @@ body {
     "footer footer footer";
   grid-gap: 10px;
 
-  max-width: 1200px;
+  max-width: 1440px;
   height: 100%;
   margin: 0 auto;
   padding: 10px;

@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <ul>
+  <div class="tracked-locations">
+    <ul class="tracked-locations__list">
       <li
+        class="tracked-locations__item"
         v-for="trackedItem in trackedLocations"
         :key="trackedItem.location.woeid"
       >
@@ -25,4 +26,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.tracked-locations {
+  padding: 10px;
+}
+
+.tracked-locations__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tracked-locations__item {
+  margin-bottom: 10px;
+}
+</style>
