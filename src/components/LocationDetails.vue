@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="location-details">
     <h2>{{ location.title }}, {{ location.parent.title }}</h2>
     <ul class="location-details__forecast">
       <li
@@ -7,17 +7,16 @@
         v-for="day in forecast"
         :key="day.id"
       >
-        <time :datetime="day.date.toISOString()">
-          {{ day.date.toLocaleDateString() }}
-        </time>
-        <span>{{ day.temp }} &#x2103; </span>
+        <ForecastDay :forecastDay="day" />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import ForecastDay from "./ForecastDay.vue";
 export default {
+  components: { ForecastDay },
   props: {
     location: Object,
     forecast: Array,
@@ -27,9 +26,14 @@ export default {
 </script>
 
 <style scoped>
+.location-details {
+  padding: 10px;
+}
+
 .location-details__forecast {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 10px 5px;
 
   margin: 0;
   padding: 0;
