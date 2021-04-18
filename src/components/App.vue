@@ -8,7 +8,10 @@
       class="app__panel app__tracked-list"
       :trackedLocations="trackedLocations"
     />
-    <Map class="app__panel app__map" :trackedLocations="trackedLocations" />
+    <WorldMap
+      class="app__panel app__map"
+      :trackedLocations="trackedLocations"
+    />
     <div class="app__panel app__location-details"></div>
     <footer class="app__footer">&copy; ppesterev</footer>
   </div>
@@ -17,23 +20,39 @@
 <script>
 import LocationSearch from "./LocationSearch.vue";
 import TrackedLocationsList from "./TrackedLocationsList.vue";
-import Map from "./Map.vue";
+import WorldMap from "./WorldMap.vue";
 
 import { getLocationDetails } from "../api";
 
 export default {
   name: "App",
-  components: { LocationSearch, Map, TrackedLocationsList },
+  components: { LocationSearch, WorldMap, TrackedLocationsList },
   data: () => ({
     trackedLocations: []
   }),
+
   methods: {
     onLocationTracked(location) {
-      const newTrackedLocation = { location, forecast: null, isLoading: true };
-      this.trackedLocations.push(newTrackedLocation);
-      getLocationDetails(location.woeid).then((details) => {
-        newTrackedLocation.forecast = details.forecast;
-        newTrackedLocation.isLoading = false;
+      const id = location.woeid;
+      if (
+        this.trackedLocations.find((tracked) => tracked.location.woeid === id)
+      ) {
+        return;
+      }
+      const newTrackedLocation = this.trackedLocations[id] || {
+        location,
+        forecast: null,
+        isLoading: true,
+        addedOn: Date.now()
+      };
+      this.trackedLocations = [...this.trackedLocations, newTrackedLocation];
+      this.updateTrackedLocation(newTrackedLocation);
+    },
+    updateTrackedLocation(tracked) {
+      tracked.isLoading = true;
+      getLocationDetails(tracked.location.woeid).then((details) => {
+        tracked.forecast = details.forecast;
+        tracked.isLoading = false;
       });
     }
   }
