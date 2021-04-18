@@ -90,6 +90,7 @@ export default {
     updateTrackedLocation(tracked) {
       tracked.isLoading = true;
       getLocationDetails(tracked.location.woeid).then((details) => {
+        tracked.location = details.location;
         tracked.forecast = details.forecast;
         tracked.isLoading = false;
       });

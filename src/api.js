@@ -14,7 +14,8 @@ const parseLocation = (locationData) => {
     coords: {
       latt: parseFloat(latt),
       long: parseFloat(long)
-    }
+    },
+    parent: locationData.parent ? parseLocation(locationData.parent) : null
   };
 };
 
