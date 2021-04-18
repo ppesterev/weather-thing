@@ -21,9 +21,11 @@ export default {
   props: {
     trackedLocations: Array
   },
+
   data() {
     return { leafletMap: null };
   },
+
   computed: {
     markers: function() {
       return this.trackedLocations.map((tracked) => {

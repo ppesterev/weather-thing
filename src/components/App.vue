@@ -27,7 +27,9 @@ import { getLocationDetails } from "../api";
 
 export default {
   name: "App",
+
   components: { LocationSearch, WorldMap, TrackedLocationsList },
+
   data: () => ({
     trackedLocations: []
   }),

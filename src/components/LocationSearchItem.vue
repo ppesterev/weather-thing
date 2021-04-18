@@ -26,8 +26,9 @@ export default {
 
       const NS = latt > 0 ? "N" : "S";
       const EW = long > 0 ? "E" : "W";
-      return `${Math.abs(latt).toFixed(2)} ${NS}, \
-${Math.abs(long).toFixed(2)} ${EW}`;
+      const fixedLatt = Math.abs(latt).toFixed(2);
+      const fixedLong = Math.abs(long).toFixed(2);
+      return `${fixedLatt} ${NS}, ${fixedLong} ${EW}`;
     }
   }
 };
