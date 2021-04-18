@@ -8,7 +8,7 @@
       class="app__panel app__tracked-list"
       :trackedLocations="trackedLocations"
     />
-    <Map class="app__panel app__map" />
+    <Map class="app__panel app__map" :trackedLocations="trackedLocations" />
     <div class="app__panel app__location-details"></div>
     <footer class="app__footer">&copy; ppesterev</footer>
   </div>

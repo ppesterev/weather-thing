@@ -5,20 +5,55 @@
 </template>
 
 <script>
-import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+// this is entirely leaflet's fault
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow
+});
+
 export default {
+  props: {
+    trackedLocations: Array
+  },
+  data() {
+    return { leafletMap: null };
+  },
+  computed: {
+    markers: function() {
+      return this.trackedLocations.map((tracked) => {
+        const { latt, long } = tracked.location.coords;
+        const marker = L.marker([latt, long], {
+          title: tracked.location.title
+        });
+        marker.on("click", () => console.log(tracked.location.title));
+        return marker;
+      });
+    }
+  },
+
+  watch: {
+    markers: {
+      handler(newMarkers, oldMarkers) {
+        oldMarkers.forEach((marker) => marker.remove());
+        newMarkers.forEach((marker) => marker.addTo(this.leafletMap));
+      }
+    }
+  },
+
   mounted() {
-    this.leafletMap = L.map("leaflet-map", { center: [55, 83], zoom: 10 });
+    this.leafletMap = L.map("leaflet-map", { center: [0, 0], zoom: 2 });
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}", {
       foo: "bar",
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.leafletMap);
-  },
-
-  data() {
-    return { leafletMap: null };
+    this.markers.forEach((marker) => marker.addTo(this.leafletMap));
   }
 };
 </script>
