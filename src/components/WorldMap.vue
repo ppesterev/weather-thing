@@ -44,6 +44,7 @@ export default {
       handler(newMarkers, oldMarkers) {
         oldMarkers.forEach((marker) => marker.remove());
         newMarkers.forEach((marker) => marker.addTo(this.leafletMap));
+        this.fitMapToMarkers();
       }
     }
   },
@@ -56,6 +57,40 @@ export default {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.leafletMap);
     this.markers.forEach((marker) => marker.addTo(this.leafletMap));
+    this.fitMapToMarkers();
+  },
+
+  methods: {
+    fitMapToMarkers() {
+      if (!this.trackedLocations || this.trackedLocations.length === 0) {
+        return;
+      }
+
+      const latitudes = this.trackedLocations
+        .map((tracked) => tracked.location.coords.latt)
+        .sort((a, b) => a - b);
+      const longitudes = this.trackedLocations
+        .map((tracked) => tracked.location.coords.long)
+        .sort((a, b) => a - b);
+
+      const [minLatt, maxLatt] = [
+        latitudes[0],
+        latitudes[latitudes.length - 1]
+      ];
+
+      const [minLong, maxLong] = [
+        longitudes[0],
+        longitudes[longitudes.length - 1]
+      ];
+
+      this.leafletMap.fitBounds(
+        [
+          [minLatt, minLong],
+          [maxLatt, maxLong]
+        ],
+        { maxZoom: 10 }
+      );
+    }
   }
 };
 </script>
