@@ -1,11 +1,14 @@
 <template>
   <div class="location-search">
-    <input
-      class="location-search__field"
-      type="search"
-      @input="onSearchTermChanged($event.target.value)"
-    />
-    <span v-if="this.isTyping">Waiting...</span>
+    <div class="location-search__bar">
+      <input
+        class="location-search__field"
+        type="search"
+        @input="onSearchTermChanged($event.target.value)"
+      />
+      <span v-if="this.isTyping">Typing...</span>
+      <span v-else-if="this.isFetching">Fetching...</span>
+    </div>
     <ul class="location-search__list">
       <li
         class="location-search__item"
@@ -34,14 +37,23 @@ export default {
 
   data: () => ({
     isTyping: false,
+    isFetching: false,
+    searchWillBeDiscarded: false,
     searchResults: null
   }),
 
   methods: {
     requestSearch: debounce(function(term) {
       this.isTyping = false;
+      this.isFetching = true;
       this.searchResults = null;
-      searchLocation(term).then((results) => (this.searchResults = results));
+      searchLocation(term).then((results) => {
+        if (!this.searchWillBeDiscarded) {
+          this.searchResults = results;
+        }
+        this.searchWillBeDiscarded = false;
+        this.isFetching = false;
+      });
     }, SEARCH_INPUT_DELAY),
 
     onSearchTermChanged(term) {
@@ -50,6 +62,9 @@ export default {
         return;
       }
       this.isTyping = true;
+      if (this.isFetching) {
+        this.searchWillBeDiscarded = true;
+      }
       this.requestSearch(term);
     }
   }
@@ -58,16 +73,17 @@ export default {
 
 <style scoped>
 .location-search {
-  padding: 10px;
+  overflow: hidden;
+}
+
+.location-search__bar {
+  background-color: rgb(173, 207, 235);
+  height: 40px;
 }
 
 .location-search__list {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.location-search__item {
-  margin-bottom: 5px;
 }
 </style>
