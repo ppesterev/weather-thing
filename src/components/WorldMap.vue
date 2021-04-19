@@ -33,7 +33,9 @@ export default {
         const marker = L.marker([latt, long], {
           title: tracked.location.title
         });
-        marker.on("click", () => console.log(tracked.location.title));
+        marker.on("click", () => {
+          this.$emit("expand-location", tracked.location.woeid);
+        });
         return marker;
       });
     }
@@ -50,7 +52,11 @@ export default {
   },
 
   mounted() {
-    this.leafletMap = L.map("leaflet-map", { center: [10, 10], zoom: 2 });
+    this.leafletMap = L.map("leaflet-map", {
+      center: [10, 10],
+      zoom: 2,
+      doubleClickZoom: false
+    });
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       {
@@ -62,6 +68,13 @@ export default {
     ).addTo(this.leafletMap);
     this.markers.forEach((marker) => marker.addTo(this.leafletMap));
     this.fitMapToMarkers();
+    this.leafletMap.on(
+      "dblclick",
+      function(evt) {
+        const { lat, lng } = evt.latlng;
+        this.$emit("search-by-distance", { latt: lat, long: lng });
+      }.bind(this)
+    );
   },
 
   methods: {
@@ -122,6 +135,7 @@ export default {
 }
 
 #leaflet-map {
+  min-height: 500px;
   z-index: -5;
 }
 </style>

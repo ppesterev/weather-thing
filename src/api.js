@@ -32,7 +32,22 @@ const parseWeather = (weatherData) => ({
 export const searchLocation = (str) => {
   return axios
     .get(getFullUrl("location/search"), { params: { query: str } })
-    .then((response) => response.data.map(parseLocation));
+    .then((response) =>
+      response.data.map((result) => ({ location: parseLocation(result) }))
+    );
+};
+
+export const searchByDistance = (coords) => {
+  return axios
+    .get(getFullUrl("location/search"), {
+      params: { lattlong: `${coords.latt},${coords.long}` }
+    })
+    .then((response) =>
+      response.data.map((result) => ({
+        location: parseLocation(result),
+        distance: result.distance
+      }))
+    );
 };
 
 export const getLocationDetails = (woeid) => {

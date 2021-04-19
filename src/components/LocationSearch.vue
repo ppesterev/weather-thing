@@ -4,6 +4,7 @@
       <input
         class="location-search__field"
         type="search"
+        :value="searchFieldText"
         @input="onSearchTermChanged($event.target.value)"
       />
       <span v-if="this.isTyping">Typing...</span>
@@ -26,7 +27,7 @@
 
 <script>
 import { debounce } from "../utils";
-import { searchLocation } from "../api";
+import { searchLocation, searchByDistance } from "../api";
 
 import LocationSearchItem from "./LocationSearchItem.vue";
 
@@ -35,19 +36,36 @@ const SEARCH_INPUT_DELAY = 600;
 export default {
   components: { LocationSearchItem },
 
+  props: {
+    distanceSearch: Object
+  },
+
   data: () => ({
+    searchFieldText: "",
     isTyping: false,
     isFetching: false,
     searchWillBeDiscarded: false,
     searchResults: null
   }),
 
+  watch: {
+    distanceSearch: function({ latt, long }) {
+      this.searchFieldText = `${latt}, ${long}`;
+      this.requestSearch({ latt, long });
+    }
+  },
+
   methods: {
     requestSearch: debounce(function(term) {
       this.isTyping = false;
       this.isFetching = true;
       this.searchResults = null;
-      searchLocation(term).then((results) => {
+
+      let searchAPIFunction = searchLocation;
+      if (term.latt && term.long) {
+        searchAPIFunction = searchByDistance;
+      }
+      searchAPIFunction(term).then((results) => {
         if (!this.searchWillBeDiscarded) {
           this.searchResults = results;
         }
@@ -57,6 +75,7 @@ export default {
     }, SEARCH_INPUT_DELAY),
 
     onSearchTermChanged(term) {
+      this.searchFieldText = term;
       if (!term) {
         this.isTyping = false;
         return;

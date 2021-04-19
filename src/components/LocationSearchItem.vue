@@ -1,10 +1,12 @@
 <template>
   <div class="search-result" draggable @dragstart="$emit('drag-search-result')">
-    <h3 class="search-result__title">{{ searchResult.title }}</h3>
+    <h3 class="search-result__title">{{ searchResult.location.title }}</h3>
     <span class="search-result__position">{{
-      this.getCoordinateString()
+      searchResult.distance
+        ? `${Math.floor(searchResult.distance / 1000)} km`
+        : this.getCoordinateString()
     }}</span>
-    <button @click="$emit('track-location', searchResult)">
+    <button @click="$emit('track-location', searchResult.location)">
       Track
     </button>
   </div>
@@ -22,7 +24,7 @@ export default {
         return;
       }
 
-      const { latt, long } = this.searchResult.coords;
+      const { latt, long } = this.searchResult.location.coords;
 
       const NS = latt > 0 ? "N" : "S";
       const EW = long > 0 ? "E" : "W";

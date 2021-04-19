@@ -2,6 +2,7 @@
   <div class="app">
     <LocationSearch
       class="app__panel app__location-search"
+      :distanceSearch="distanceSearchTerm"
       @track-location="onLocationTracked"
     />
     <TrackedLocationsList
@@ -13,6 +14,8 @@
     <WorldMap
       class="app__panel app__map"
       :trackedLocations="trackedLocations"
+      @expand-location="onLocationExpanded"
+      @search-by-distance="onSearchByDistance"
     />
     <LocationDetails
       class="app__panel app__location-details"
@@ -50,11 +53,16 @@ export default {
   },
 
   data: () => ({
+    distanceSearchTerm: null,
     trackedLocations: [],
     expandedLocation: null
   }),
 
   methods: {
+    onSearchByDistance(coords) {
+      this.distanceSearchTerm = coords;
+    },
+
     onLocationTracked(location) {
       const id = location.woeid;
       if (
@@ -115,6 +123,8 @@ body {
   margin: 0;
   height: 100vh;
   background-color: whitesmoke;
+  background-image: url("../img/clouds.jpg");
+  background-size: cover;
 }
 
 .app {
@@ -131,7 +141,7 @@ body {
   margin: 0 auto;
   padding: 10px;
 
-  background-color: whitesmoke;
+  background-color: rgba(245, 245, 245, 0.795);
 }
 
 @media (min-width: 1200px) {
