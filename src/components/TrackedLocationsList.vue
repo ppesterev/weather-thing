@@ -1,5 +1,6 @@
 <template>
   <div class="tracked-locations">
+    <div class="tracked-locations__filters"></div>
     <ul class="tracked-locations__list">
       <li
         class="tracked-locations__item"
@@ -29,17 +30,14 @@ export default {
 </script>
 
 <style scoped>
-.tracked-locations {
-  padding: 10px;
+.tracked-locations__filters {
+  background-color: steelblue;
+  height: 40px;
 }
 
 .tracked-locations__list {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.tracked-locations__item {
-  margin-bottom: 10px;
 }
 </style>

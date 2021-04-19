@@ -126,7 +126,6 @@ body {
     "map map"
     "details details"
     "footer footer";
-  grid-gap: 10px;
 
   height: 100%;
   margin: 0 auto;
@@ -144,13 +143,6 @@ body {
       "details details details"
       "footer footer footer";
   }
-}
-
-.app__panel {
-  background-color: whitesmoke;
-  border-radius: 5px;
-  box-shadow: inset 2px 2px 3px -1px rgba(0, 0, 0, 0.2),
-    inset -2px -2px 3px -1px rgba(255, 255, 255, 0.6);
 }
 
 .app__map {

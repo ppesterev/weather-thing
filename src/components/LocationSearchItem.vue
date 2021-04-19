@@ -36,19 +36,21 @@ export default {
 
 <style scoped>
 .search-result {
+  position: relative;
   padding: 5px;
 
-  background-color: white;
-  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.808);
+  box-shadow: inset 0 5px 10px -8px slategrey;
   cursor: grab;
 }
 
 .search-result:hover {
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 4px 10px -9px slategrey;
 }
 
 .search-result:active {
-  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 3px 12px -10px slategrey;
+  left: 1px;
 }
 
 .search-result__title {

@@ -1,6 +1,6 @@
 <template>
   <div class="forecast-day">
-    <h3>
+    <h3 class="forecast-day__date">
       <time :datetime="forecastDay.date.toISOString()">
         {{ forecastDay.date.toLocaleDateString() }}
       </time>
@@ -34,10 +34,15 @@ export default {
 
 <style scoped>
 .forecast-day {
-  padding: 5px;
+  padding: 10px;
 
   background-color: white;
   border-radius: 5px;
+  box-shadow: 1px 1px 5px -2px grey;
+}
+
+.forecast-day__date {
+  margin: 0 0 20px 0;
 }
 
 .forecast-day__basic-info {
