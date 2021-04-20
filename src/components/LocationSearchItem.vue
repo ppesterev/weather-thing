@@ -1,5 +1,5 @@
 <template>
-  <div class="search-result" draggable @dragstart="$emit('drag-search-result')">
+  <div class="search-result" draggable @dragstart="onDragged">
     <h3 class="search-result__title">{{ searchResult.location.title }}</h3>
     <span class="search-result__position">{{
       searchResult.distance
@@ -19,6 +19,13 @@ export default {
   },
 
   methods: {
+    onDragged(evt) {
+      evt.dataTransfer.setData(
+        "application/json",
+        JSON.stringify(this.searchResult)
+      );
+    },
+
     getCoordinateString() {
       if (!this.searchResult) {
         return;
@@ -41,6 +48,7 @@ export default {
   position: relative;
   padding: 5px;
 
+  border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.808);
   box-shadow: inset 0 5px 10px -8px slategrey;
   cursor: grab;

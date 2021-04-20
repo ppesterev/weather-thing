@@ -8,6 +8,7 @@
     <TrackedLocationsList
       class="app__panel app__tracked-list"
       :trackedLocations="trackedLocations"
+      @track-location="onLocationTracked"
       @untrack-location="onLocationUntracked"
       @expand-location="onLocationExpanded"
     />
