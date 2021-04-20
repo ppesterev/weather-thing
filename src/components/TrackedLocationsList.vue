@@ -31,13 +31,13 @@ export default {
 
 <style scoped>
 .tracked-locations__filters {
-  background-color: steelblue;
+  background-color: rgb(173, 207, 235);
   height: 40px;
 }
 
 .tracked-locations__list {
   margin: 0;
-  padding: 0;
+  padding: 5px;
   list-style: none;
 }
 </style>

@@ -139,14 +139,13 @@ body {
 
   height: 100%;
   margin: 0 auto;
-  padding: 10px;
 
   background-color: rgba(245, 245, 245, 0.795);
 }
 
 @media (min-width: 1200px) {
   .app {
-    grid-template-rows: 5fr 2fr auto;
+    grid-template-rows: 500px 1fr auto;
     grid-template-columns: 1fr 1fr 3fr;
     grid-template-areas:
       "search tracked map"
