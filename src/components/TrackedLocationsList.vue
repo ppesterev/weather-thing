@@ -1,18 +1,37 @@
 <template>
-  <div
-    class="tracked-locations"
-    dropzone
-    @dragenter="onDragEnter"
-    @dragleave="onDragLeave"
-    @dragover="$event.preventDefault()"
-    @drop="onDrop"
-  >
+  <div class="tracked-locations" @dragend="dropPosition = null">
     <div class="tracked-locations__filters"></div>
-    <ul class="tracked-locations__list">
+    <ul
+      :class="
+        `tracked-locations__list ${
+          dropPosition === -1 ? 'tracked-locations__list--drop-target' : ''
+        }`
+      "
+      dropzone
+      @dragenter.self="dropPosition = -1"
+      @dragleave="dropPosition = null"
+      @dragover.prevent
+      @drop="onDrop"
+    >
       <li
-        class="tracked-locations__item"
-        v-for="trackedItem in trackedLocations"
+        v-for="(trackedItem, index) in trackedLocations"
         :key="trackedItem.location.woeid"
+        :class="
+          `tracked-locations__item ${
+            dropPosition === index ? 'tracked-locations__item--drop-target' : ''
+          }`
+        "
+        dropzone
+        @dragleave="
+          (evt) => {
+            if (evt.target === evt.currentTarget) {
+              return;
+            }
+            evt.stopPropagation();
+          }
+        "
+        @dragenter.stop="dropPosition = index"
+        @drop.stop="onDrop"
       >
         <TrackedLocation
           :location="trackedItem.location"
@@ -33,29 +52,43 @@ export default {
   props: {
     trackedLocations: Array
   },
+
+  data() {
+    return {
+      dropPosition: null
+    };
+  },
+
   methods: {
-    onDragEnter(evt) {
-      evt.preventDefault();
-      evt.target.classList.add("tracked-locations--insert");
-    },
-    onDragLeave(evt) {
-      evt.preventDefault();
-      evt.target.classList.remove("tracked-locations--insert");
-    },
     onDrop(evt) {
-      evt.target.classList.remove("tracked-locations--insert");
       this.$emit(
         "track-location",
-        JSON.parse(evt.dataTransfer.getData("application/json")).location
+        JSON.parse(evt.dataTransfer.getData("application/json")).location,
+        this.dropPosition
       );
+      this.dropPosition = null;
     }
   }
 };
 </script>
 
 <style scoped>
-.tracked-locations--insert::after {
-  content: "drop here";
+.tracked-locations {
+  display: grid;
+  grid-template-rows: minmax(40px, auto) 1fr;
+}
+
+.tracked-locations__list--drop-target::after,
+.tracked-locations__item--drop-target::before {
+  content: "";
+  display: grid;
+
+  height: 80px;
+  margin: 5px;
+
+  background-color: rgba(70, 131, 180, 0.05);
+  border: 2px dashed steelblue;
+  border-radius: 10px;
 }
 
 .tracked-locations__filters {
@@ -65,7 +98,7 @@ export default {
 
 .tracked-locations__list {
   margin: 0;
-  padding: 5px;
+  padding: 0;
   list-style: none;
 }
 </style>

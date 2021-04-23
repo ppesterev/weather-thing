@@ -1,31 +1,33 @@
 <template>
   <div class="app">
-    <LocationSearch
-      class="app__panel app__location-search"
-      :distanceSearch="distanceSearchTerm"
-      @track-location="onLocationTracked"
-    />
-    <TrackedLocationsList
-      class="app__panel app__tracked-list"
-      :trackedLocations="trackedLocations"
-      @track-location="onLocationTracked"
-      @untrack-location="onLocationUntracked"
-      @expand-location="onLocationExpanded"
-    />
-    <WorldMap
-      class="app__panel app__map"
-      :trackedLocations="trackedLocations"
-      @expand-location="onLocationExpanded"
-      @search-by-distance="onSearchByDistance"
-    />
+    <div class="app__panel app__main-panel">
+      <LocationSearch
+        class="app__location-search"
+        :distanceSearch="distanceSearchTerm"
+        @track-location="onLocationTracked"
+      />
+      <TrackedLocationsList
+        class="app__tracked-list"
+        :trackedLocations="trackedLocations"
+        @track-location="onLocationTracked"
+        @untrack-location="onLocationUntracked"
+        @expand-location="onLocationExpanded"
+      />
+      <WorldMap
+        class="app__map"
+        :trackedLocations="trackedLocations"
+        @expand-location="onLocationExpanded"
+        @search-by-distance="onSearchByDistance"
+      />
+    </div>
     <LocationDetails
-      class="app__panel app__location-details"
       v-if="expandedLocation"
+      class="app__panel app__location-details"
       :location="expandedLocation.location"
       :forecast="expandedLocation.forecast"
       :isLoading="expandedLocation.isLoading"
     />
-    <footer class="app__footer">
+    <footer class="app__panel app__footer">
       <div>&copy; ppesterev</div>
       <div>
         Weather data kindly provided by
@@ -64,7 +66,7 @@ export default {
       this.distanceSearchTerm = coords;
     },
 
-    onLocationTracked(location) {
+    onLocationTracked(location, index) {
       const id = location.woeid;
       if (
         this.trackedLocations.find((tracked) => tracked.location.woeid === id)
@@ -77,7 +79,13 @@ export default {
         isLoading: true,
         addedOn: Date.now()
       };
-      this.trackedLocations = [...this.trackedLocations, newTrackedLocation];
+      if (index === -1) {
+        this.trackedLocations = [...this.trackedLocations, newTrackedLocation];
+      } else {
+        const updatedLocations = this.trackedLocations.slice();
+        updatedLocations.splice(index, 0, newTrackedLocation);
+        this.trackedLocations = updatedLocations;
+      }
       this.updateTrackedLocation(newTrackedLocation);
     },
 
@@ -121,42 +129,48 @@ html {
 }
 
 body {
+  display: grid;
+
   margin: 0;
-  height: 100vh;
-  background-color: whitesmoke;
+  min-height: 100vh;
+
+  background-color: #87aad2;
   background-image: url("../img/clouds.jpg");
   background-size: cover;
 }
 
 .app {
   display: grid;
-  grid-template-rows: auto 500px 1fr auto;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "search tracked"
-    "map map"
-    "details details"
-    "footer footer";
+  justify-content: center;
+  grid-template-rows: minmax(auto, 500px) 1fr auto;
+  grid-template-columns: minmax(auto, 1400px);
+  grid-template-areas: "main" "details" "footer";
+  grid-gap: 10px;
 
   height: 100%;
-  margin: 0 auto;
 
-  background-color: rgba(245, 245, 245, 0.795);
+  background-color: rgba(245, 245, 245, 0.67);
 }
 
-@media (min-width: 1200px) {
-  .app {
-    grid-template-rows: 500px 1fr auto;
-    grid-template-columns: 1fr 1fr 3fr;
-    grid-template-areas:
-      "search tracked map"
-      "details details details"
-      "footer footer footer";
-  }
+.app__panel {
+  background-color: rgba(237, 243, 245, 0.85);
+  box-shadow: 2px 2px 12px -5px rgb(54, 75, 119);
+}
+
+.app__main-panel {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 2fr 2fr 5fr;
+  grid-template-rows: 100%;
+  grid-template-areas: "search tracked map";
+
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
 }
 
 .app__map {
   grid-area: map;
+  max-height: 100%;
 }
 
 .app__location-search {
@@ -169,9 +183,13 @@ body {
 
 .app__location-details {
   grid-area: details;
+  border-radius: 10px;
 }
 
 .app__footer {
   grid-area: footer;
+  padding: 10px;
+
+  border-radius: 10px 10px 0 0;
 }
 </style>
