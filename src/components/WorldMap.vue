@@ -130,8 +130,7 @@ export default {
   right: 0;
   z-index: 5;
   pointer-events: none;
-  box-shadow: inset 2px 2px 3px 0 rgba(0, 0, 0, 0.2),
-    inset -2px -2px 3px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: inset 10px 0 15px -15px rgb(20, 39, 63);
 }
 
 #leaflet-map {

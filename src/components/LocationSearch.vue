@@ -102,7 +102,7 @@ export default {
 
 .location-search__list {
   margin: 0;
-  padding: 5px;
+  padding: 0;
   list-style: none;
 }
 </style>
