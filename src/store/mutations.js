@@ -23,6 +23,16 @@ const mutations = {
     state.trackedLocations.splice(index, 0, location);
   },
 
+  updateTrackedLocation(state, { location }) {
+    const index = state.trackedLocations.findIndex(
+      (tracked) => tracked.woeid === location.woeid
+    );
+    if (index === -1) {
+      return;
+    }
+    state.trackedLocations[index] = location;
+  },
+
   removeTrackedLocation(state, { woeid }) {
     state.trackedLocations = state.trackedLocations.filter(
       (tracked) => tracked.woeid === woeid
