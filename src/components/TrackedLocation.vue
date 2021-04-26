@@ -46,8 +46,7 @@ export default {
 
   padding: 5px;
 
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: inset 0 5px 10px -8px slategrey;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .tracked-location__title {

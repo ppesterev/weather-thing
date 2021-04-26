@@ -81,10 +81,10 @@ export default {
 .tracked-locations__list--drop-target::after,
 .tracked-locations__item--drop-target::before {
   content: "";
-  display: grid;
+  display: block;
 
   height: 80px;
-  margin: 5px;
+  margin-bottom: 5px;
 
   background-color: rgba(70, 131, 180, 0.05);
   border: 2px dashed steelblue;
@@ -97,8 +97,12 @@ export default {
 }
 
 .tracked-locations__list {
+  display: grid;
+  align-content: flex-start;
+  grid-gap: 5px;
+
   margin: 0;
-  padding: 0;
+  padding: 5px;
   list-style: none;
 }
 </style>

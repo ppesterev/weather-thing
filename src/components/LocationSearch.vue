@@ -101,8 +101,12 @@ export default {
 }
 
 .location-search__list {
+  display: grid;
+  align-content: flex-start;
+  grid-gap: 5px;
+
   margin: 0;
-  padding: 0;
+  padding: 5px;
   list-style: none;
 }
 </style>

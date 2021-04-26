@@ -26,6 +26,10 @@ export default {
 </script>
 
 <style scoped>
+.location-details {
+  padding: 10px;
+}
+
 .location-details__forecast {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

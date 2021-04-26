@@ -49,18 +49,19 @@ export default {
   padding: 5px;
 
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.808);
-  box-shadow: inset 0 5px 10px -8px slategrey;
+  background-color: rgba(255, 255, 255, 0.6);
   cursor: grab;
 }
 
 .search-result:hover {
-  box-shadow: inset 0 4px 10px -9px slategrey;
+  color: white;
+  background-color: rgba(70, 131, 180, 0.8);
 }
 
 .search-result:active {
-  box-shadow: inset 0 3px 12px -10px slategrey;
-  left: 1px;
+  box-shadow: 0 3px 12px -5px slategrey;
+  top: -2px;
+  left: -1px;
 }
 
 .search-result__title {
@@ -73,5 +74,9 @@ export default {
   font-size: 0.8rem;
   font-style: italic;
   color: grey;
+}
+
+.search-result:hover .search-result__position {
+  color: white;
 }
 </style>

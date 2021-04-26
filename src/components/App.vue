@@ -125,14 +125,11 @@ export default {
 
 html {
   font-size: 16px;
-  font-family: "Segoe UI", Verdana, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 body {
-  display: grid;
-
   margin: 0;
-  min-height: 100vh;
 
   background-color: #87aad2;
   background-image: url("../img/clouds.jpg");
@@ -142,18 +139,22 @@ body {
 .app {
   display: grid;
   justify-content: center;
-  grid-template-rows: minmax(auto, 500px) 1fr auto;
+  grid-template-rows: auto 1fr auto;
   grid-template-columns: minmax(auto, 1400px);
-  grid-template-areas: "main" "details" "footer";
+  grid-template-areas:
+    "main"
+    "details"
+    "footer";
   grid-gap: 10px;
 
-  height: 100%;
+  min-height: 100vh;
+  padding: 0 10px;
 
-  background-color: rgba(245, 245, 245, 0.67);
+  background-color: rgba(245, 245, 245, 0.7);
 }
 
 .app__panel {
-  background-color: rgba(237, 243, 245, 0.85);
+  background-color: rgba(237, 243, 245, 0.7);
   box-shadow: 2px 2px 12px -5px rgb(54, 75, 119);
 }
 
@@ -161,7 +162,7 @@ body {
   grid-area: main;
   display: grid;
   grid-template-columns: 2fr 2fr 5fr;
-  grid-template-rows: 100%;
+  grid-template-rows: minmax(auto, 500px);
   grid-template-areas: "search tracked map";
 
   border-radius: 0 0 10px 10px;
@@ -183,6 +184,7 @@ body {
 
 .app__location-details {
   grid-area: details;
+  align-self: flex-start;
   border-radius: 10px;
 }
 
