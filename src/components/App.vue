@@ -23,8 +23,6 @@
 <script>
 import { mapState } from "vuex";
 
-import { getLocationDetails } from "../api";
-
 import LocationSearch from "./LocationSearch.vue";
 import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
@@ -44,59 +42,6 @@ export default {
     ...mapState({
       viewedLocation: (state) => state.viewedLocation
     })
-  },
-
-  methods: {
-    onSearchByDistance(coords) {
-      this.distanceSearchTerm = coords;
-    },
-
-    onLocationTracked(location, index) {
-      const id = location.woeid;
-      if (
-        this.trackedLocations.find((tracked) => tracked.location.woeid === id)
-      ) {
-        return;
-      }
-      const newTrackedLocation = {
-        location,
-        forecast: null,
-        isLoading: true,
-        addedOn: Date.now()
-      };
-      if (index === -1) {
-        this.trackedLocations = [...this.trackedLocations, newTrackedLocation];
-      } else {
-        const updatedLocations = this.trackedLocations.slice();
-        updatedLocations.splice(index, 0, newTrackedLocation);
-        this.trackedLocations = updatedLocations;
-      }
-      this.updateTrackedLocation(newTrackedLocation);
-    },
-
-    onLocationUntracked(woeid) {
-      this.trackedLocations = this.trackedLocations.filter(
-        (tracked) => tracked.location.woeid !== woeid
-      );
-    },
-
-    onLocationExpanded(woeid) {
-      const expandedLocation = this.trackedLocations.find(
-        (tracked) => tracked.location.woeid === woeid
-      );
-      if (expandedLocation) {
-        this.expandedLocation = expandedLocation;
-      }
-    },
-
-    updateTrackedLocation(tracked) {
-      tracked.isLoading = true;
-      getLocationDetails(tracked.location.woeid).then((details) => {
-        tracked.location = details.location;
-        tracked.forecast = details.forecast;
-        tracked.isLoading = false;
-      });
-    }
   }
 };
 </script>
