@@ -7,3 +7,11 @@ export const debounce = (cb, delay) => {
     timeoutId = setTimeout(() => cb.call(this, ...args), delay);
   };
 };
+
+export const coordsToString = ({ latt, long }) => {
+  const NS = latt > 0 ? "N" : "S";
+  const EW = long > 0 ? "E" : "W";
+  const fixedLatt = Math.abs(latt).toFixed(2);
+  const fixedLong = Math.abs(long).toFixed(2);
+  return `${fixedLatt} ${NS}, ${fixedLong} ${EW}`;
+};

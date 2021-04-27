@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -72,12 +73,13 @@ export default {
       "dblclick",
       function(evt) {
         const { lat, lng } = evt.latlng;
-        this.$emit("search-by-distance", { latt: lat, long: lng });
+        this.distanceSearch({ coords: { latt: lat, long: lng } });
       }.bind(this)
     );
   },
 
   methods: {
+    ...mapActions(["distanceSearch"]),
     fitMapToMarkers() {
       if (!this.trackedLocations || this.trackedLocations.length === 0) {
         this.leafletMap.setView([10, 10], 2);

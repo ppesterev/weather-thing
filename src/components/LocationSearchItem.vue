@@ -4,7 +4,7 @@
     <span class="search-result__position">{{
       searchResult.distance
         ? `${Math.floor(searchResult.distance / 1000)} km`
-        : this.getCoordinateString()
+        : this.coordinateString
     }}</span>
     <button @click="$emit('track-location', searchResult.location)">
       Track
@@ -13,9 +13,17 @@
 </template>
 
 <script>
+import { coordsToString } from "../utils";
+
 export default {
   props: {
     searchResult: Object
+  },
+
+  computed: {
+    coordinateString() {
+      return coordsToString(this.searchResult.location.coords);
+    }
   },
 
   methods: {
@@ -24,20 +32,6 @@ export default {
         "application/json",
         JSON.stringify(this.searchResult)
       );
-    },
-
-    getCoordinateString() {
-      if (!this.searchResult) {
-        return;
-      }
-
-      const { latt, long } = this.searchResult.location.coords;
-
-      const NS = latt > 0 ? "N" : "S";
-      const EW = long > 0 ? "E" : "W";
-      const fixedLatt = Math.abs(latt).toFixed(2);
-      const fixedLong = Math.abs(long).toFixed(2);
-      return `${fixedLatt} ${NS}, ${fixedLong} ${EW}`;
     }
   }
 };
@@ -71,8 +65,8 @@ export default {
 }
 
 .search-result__position {
-  font-size: 0.8rem;
-  font-style: italic;
+  font-size: 0.9rem;
+  /* font-style: italic; */
   color: grey;
 }
 

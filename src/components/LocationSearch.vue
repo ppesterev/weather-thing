@@ -25,7 +25,7 @@
 <script>
 import { mapMutations, mapActions, mapState } from "vuex";
 
-import { debounce } from "../utils";
+import { coordsToString, debounce } from "../utils";
 
 import LocationSearchItem from "./LocationSearchItem.vue";
 
@@ -37,8 +37,15 @@ export default {
   computed: {
     ...mapState({
       results: (state) => state.search.results,
-      isFetching: (state) => state.search.isLoading
+      isFetching: (state) => state.search.isLoading,
+      distanceSearchOrigin: (state) => state.search.distanceSearchOrigin
     })
+  },
+
+  watch: {
+    distanceSearchOrigin: function(newCoords) {
+      this.searchFieldText = coordsToString(newCoords);
+    }
   },
 
   data: () => ({
