@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from "vuex";
+import { mapMutations, mapActions, mapState, mapGetters } from "vuex";
 
 import { coordsToString, debounce } from "../utils";
 
@@ -40,8 +40,11 @@ export default {
   }),
 
   computed: {
+    ...mapGetters({
+      results: "getUntrackedSearchResults"
+    }),
+
     ...mapState({
-      results: (state) => state.search.results,
       isFetching: (state) => state.search.isLoading,
       distanceSearchOrigin: (state) => state.search.distanceSearchOrigin
     })
