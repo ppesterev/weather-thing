@@ -13,7 +13,7 @@
     <ul class="location-search__list">
       <li
         class="location-search__item"
-        v-for="result in this.searchResults"
+        v-for="result in this.results"
         :key="result.woeid"
       >
         <LocationSearchItem :searchResult="result" />
@@ -23,8 +23,9 @@
 </template>
 
 <script>
+import { mapMutations, mapActions, mapState } from "vuex";
+
 import { debounce } from "../utils";
-import { searchLocation, searchByDistance } from "../api";
 
 import LocationSearchItem from "./LocationSearchItem.vue";
 
@@ -33,42 +34,25 @@ const SEARCH_INPUT_DELAY = 600;
 export default {
   components: { LocationSearchItem },
 
-  props: {
-    distanceSearch: Object
+  computed: {
+    ...mapState({
+      results: (state) => state.search.results,
+      isFetching: (state) => state.search.isLoading
+    })
   },
 
   data: () => ({
     searchFieldText: "",
-    isTyping: false,
-    isFetching: false,
-    searchWillBeDiscarded: false,
-    searchResults: null
+    isTyping: false
   }),
 
-  watch: {
-    distanceSearch: function({ latt, long }) {
-      this.searchFieldText = `${latt}, ${long}`;
-      this.requestSearch({ latt, long });
-    }
-  },
-
   methods: {
+    ...mapMutations(["cancelSearch"]),
+    ...mapActions(["search", "distanceSearch"]),
+
     requestSearch: debounce(function(term) {
       this.isTyping = false;
-      this.isFetching = true;
-      this.searchResults = null;
-
-      let searchAPIFunction = searchLocation;
-      if (term.latt && term.long) {
-        searchAPIFunction = searchByDistance;
-      }
-      searchAPIFunction(term).then((results) => {
-        if (!this.searchWillBeDiscarded) {
-          this.searchResults = results;
-        }
-        this.searchWillBeDiscarded = false;
-        this.isFetching = false;
-      });
+      this.search({ term });
     }, SEARCH_INPUT_DELAY),
 
     onSearchTermChanged(term) {
@@ -78,9 +62,7 @@ export default {
         return;
       }
       this.isTyping = true;
-      if (this.isFetching) {
-        this.searchWillBeDiscarded = true;
-      }
+      this.cancelSearch();
       this.requestSearch(term);
     }
   }

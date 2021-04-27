@@ -8,9 +8,18 @@ const mutations = {
     state.search.distanceSearchOrigin = coords;
   },
 
+  cancelSearch(state) {
+    if (state.search.isLoading) {
+      state.search.isCancelled = true;
+    }
+  },
+
   finishSearch(state, { results }) {
+    if (!state.search.isCancelled) {
+      state.search.results = results;
+    }
     state.search.isLoading = false;
-    state.search.results = results;
+    state.search.isCancelled = false;
   },
 
   addTrackedLocation(state, { location, index }) {
