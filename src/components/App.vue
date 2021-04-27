@@ -4,21 +4,12 @@
       <LocationSearch
         class="app__location-search"
         :distanceSearch="distanceSearchTerm"
-        @track-location="onLocationTracked"
       />
       <TrackedLocationsList
         class="app__tracked-list"
         :trackedLocations="trackedLocations"
-        @track-location="onLocationTracked"
-        @untrack-location="onLocationUntracked"
-        @expand-location="onLocationExpanded"
       />
-      <WorldMap
-        class="app__map"
-        :trackedLocations="trackedLocations"
-        @expand-location="onLocationExpanded"
-        @search-by-distance="onSearchByDistance"
-      />
+      <WorldMap class="app__map" :trackedLocations="trackedLocations" />
     </div>
     <LocationDetails
       v-if="expandedLocation"

@@ -16,10 +16,7 @@
         v-for="result in this.searchResults"
         :key="result.woeid"
       >
-        <LocationSearchItem
-          :searchResult="result"
-          @track-location="$emit('track-location', $event)"
-        />
+        <LocationSearchItem :searchResult="result" />
       </li>
     </ul>
   </div>
