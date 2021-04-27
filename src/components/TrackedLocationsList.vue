@@ -64,8 +64,7 @@ export default {
 
     onDrop(evt) {
       this.trackLocation({
-        location: JSON.parse(evt.dataTransfer.getData("application/json"))
-          .location,
+        location: JSON.parse(evt.dataTransfer.getData("application/json")),
         index: this.dropPosition
       });
       this.dropPosition = null;

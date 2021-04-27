@@ -14,7 +14,7 @@ export default new Vuex.Store({
       state.search.results.filter(
         (result) =>
           !state.trackedLocations.find(
-            (tracked) => tracked.woeid === result.location.woeid
+            (tracked) => tracked.woeid === result.woeid
           )
       )
   },

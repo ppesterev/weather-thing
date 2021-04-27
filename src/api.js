@@ -32,9 +32,7 @@ const parseWeather = (weatherData) => ({
 export const searchLocation = (str) => {
   return axios
     .get(getFullUrl("location/search"), { params: { query: str } })
-    .then((response) =>
-      response.data.map((result) => ({ location: parseLocation(result) }))
-    );
+    .then((response) => response.data.map(parseLocation));
 };
 
 export const searchByDistance = (coords) => {
@@ -44,7 +42,7 @@ export const searchByDistance = (coords) => {
     })
     .then((response) =>
       response.data.map((result) => ({
-        location: parseLocation(result),
+        ...parseLocation(result),
         distance: result.distance
       }))
     );

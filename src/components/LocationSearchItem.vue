@@ -1,12 +1,12 @@
 <template>
   <div class="search-result" draggable @dragstart="onDragged">
-    <h3 class="search-result__title">{{ searchResult.location.title }}</h3>
+    <h3 class="search-result__title">{{ searchResult.title }}</h3>
     <span class="search-result__position">{{
       searchResult.distance
         ? `${Math.floor(searchResult.distance / 1000)} km`
         : this.coordinateString
     }}</span>
-    <button @click="trackLocation({ location: searchResult.location })">
+    <button @click="trackLocation({ location: searchResult })">
       Track
     </button>
   </div>
@@ -24,7 +24,7 @@ export default {
 
   computed: {
     coordinateString() {
-      return coordsToString(this.searchResult.location.coords);
+      return coordsToString(this.searchResult.coords);
     }
   },
 
