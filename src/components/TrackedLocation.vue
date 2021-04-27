@@ -17,10 +17,10 @@
       Loading...
     </div>
     <div class="tracked-location__controls" v-if="!location.isLoading">
-      <button @click="$emit('untrack-location', location.woeid)">
+      <button @click="removeTrackedLocation({ woeid: location.woeid })">
         Untrack
       </button>
-      <button @click="$emit('expand-location', location.woeid)">
+      <button @click="viewLocation({ woeid: location.woeid })">
         View forecast
       </button>
     </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   props: {
     location: Object
@@ -38,6 +40,10 @@ export default {
       const forecast = this.location?.forecast;
       return forecast ? forecast[0] : null;
     }
+  },
+
+  methods: {
+    ...mapMutations(["removeTrackedLocation", "viewLocation"])
   }
 };
 </script>

@@ -45,7 +45,7 @@ const mutations = {
 
   removeTrackedLocation(state, { woeid }) {
     state.trackedLocations = state.trackedLocations.filter(
-      (tracked) => tracked.woeid === woeid
+      (tracked) => tracked.woeid !== woeid
     );
   },
 
