@@ -4,7 +4,7 @@
     <ul class="location-details__forecast">
       <li
         class="location-details__forecast-day"
-        v-for="day in forecast"
+        v-for="day in location.forecast"
         :key="day.id"
       >
         <ForecastDay :forecastDay="day" />
@@ -17,10 +17,9 @@
 import ForecastDay from "./ForecastDay.vue";
 export default {
   components: { ForecastDay },
+
   props: {
-    location: Object,
-    forecast: Array,
-    isLoading: Boolean
+    location: Object
   }
 };
 </script>

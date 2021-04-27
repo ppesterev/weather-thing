@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -19,23 +19,23 @@ L.Icon.Default.mergeOptions({
 });
 
 export default {
-  props: {
-    trackedLocations: Array
-  },
-
   data() {
     return { leafletMap: null };
   },
 
   computed: {
+    ...mapState({
+      trackedLocations: (state) => state.trackedLocations
+    }),
+
     markers: function() {
       return this.trackedLocations.map((tracked) => {
-        const { latt, long } = tracked.location.coords;
+        const { latt, long } = tracked.coords;
         const marker = L.marker([latt, long], {
-          title: tracked.location.title
+          title: tracked.title
         });
         marker.on("click", () => {
-          this.$emit("expand-location", tracked.location.woeid);
+          this.viewLocation({ woeid: tracked.woeid });
         });
         return marker;
       });
@@ -80,6 +80,7 @@ export default {
 
   methods: {
     ...mapActions(["distanceSearch"]),
+    ...mapMutations(["viewLocation"]),
     fitMapToMarkers() {
       if (!this.trackedLocations || this.trackedLocations.length === 0) {
         this.leafletMap.setView([10, 10], 2);
@@ -87,10 +88,10 @@ export default {
       }
 
       const latitudes = this.trackedLocations
-        .map((tracked) => tracked.location.coords.latt)
+        .map((tracked) => tracked.coords.latt)
         .sort((a, b) => a - b);
       const longitudes = this.trackedLocations
-        .map((tracked) => tracked.location.coords.long)
+        .map((tracked) => tracked.coords.long)
         .sort((a, b) => a - b);
 
       const [minLatt, maxLatt] = [

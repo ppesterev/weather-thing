@@ -3,14 +3,12 @@
     <div class="app__panel app__main-panel">
       <LocationSearch class="app__location-search" />
       <TrackedLocationsList class="app__tracked-list" />
-      <WorldMap class="app__map" :trackedLocations="trackedLocations" />
+      <WorldMap class="app__map" />
     </div>
     <LocationDetails
-      v-if="expandedLocation"
+      v-if="viewedLocation"
       class="app__panel app__location-details"
-      :location="expandedLocation.location"
-      :forecast="expandedLocation.forecast"
-      :isLoading="expandedLocation.isLoading"
+      :location="viewedLocation"
     />
     <footer class="app__panel app__footer">
       <div>&copy; ppesterev</div>
@@ -23,12 +21,14 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+import { getLocationDetails } from "../api";
+
 import LocationSearch from "./LocationSearch.vue";
 import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
 import LocationDetails from "./LocationDetails.vue";
-
-import { getLocationDetails } from "../api";
 
 export default {
   name: "App",
@@ -40,11 +40,11 @@ export default {
     LocationDetails
   },
 
-  data: () => ({
-    distanceSearchTerm: null,
-    trackedLocations: [],
-    expandedLocation: null
-  }),
+  computed: {
+    ...mapState({
+      viewedLocation: (state) => state.viewedLocation
+    })
+  },
 
   methods: {
     onSearchByDistance(coords) {
