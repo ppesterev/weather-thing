@@ -17,7 +17,7 @@ const actions = {
 
   trackLocation({ commit }, { location, index }) {
     const newTrackedLocation = { ...location, isLoading: true };
-    commit("addTrackedLocation", { newTrackedLocation, index });
+    commit("addTrackedLocation", { location: newTrackedLocation, index });
 
     getLocationDetails(location.woeid)
       .then(({ location, forecast }) => {

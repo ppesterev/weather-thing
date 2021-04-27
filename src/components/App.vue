@@ -1,14 +1,8 @@
 <template>
   <div class="app">
     <div class="app__panel app__main-panel">
-      <LocationSearch
-        class="app__location-search"
-        :distanceSearch="distanceSearchTerm"
-      />
-      <TrackedLocationsList
-        class="app__tracked-list"
-        :trackedLocations="trackedLocations"
-      />
+      <LocationSearch class="app__location-search" />
+      <TrackedLocationsList class="app__tracked-list" />
       <WorldMap class="app__map" :trackedLocations="trackedLocations" />
     </div>
     <LocationDetails

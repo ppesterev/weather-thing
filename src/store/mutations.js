@@ -22,7 +22,7 @@ const mutations = {
     state.search.isCancelled = false;
   },
 
-  addTrackedLocation(state, { location, index }) {
+  addTrackedLocation(state, { location, index = 0 }) {
     const isTracked = state.trackedLocations.find(
       (tracked) => tracked.woeid === location.woeid
     );
@@ -39,7 +39,8 @@ const mutations = {
     if (index === -1) {
       return;
     }
-    state.trackedLocations[index] = location;
+
+    state.trackedLocations.splice(index, 1, location);
   },
 
   removeTrackedLocation(state, { woeid }) {

@@ -4,18 +4,20 @@
     <ul
       :class="
         `tracked-locations__list ${
-          dropPosition === -1 ? 'tracked-locations__list--drop-target' : ''
+          dropPosition === trackedLocations.length
+            ? 'tracked-locations__list--drop-target'
+            : ''
         }`
       "
       dropzone
-      @dragenter.self="dropPosition = -1"
+      @dragenter.self="dropPosition = trackedLocations.length"
       @dragleave="dropPosition = null"
       @dragover.prevent
       @drop="onDrop"
     >
       <li
-        v-for="(trackedItem, index) in trackedLocations"
-        :key="trackedItem.location.woeid"
+        v-for="(trackedLocation, index) in trackedLocations"
+        :key="trackedLocation.woeid"
         :class="
           `tracked-locations__item ${
             dropPosition === index ? 'tracked-locations__item--drop-target' : ''
@@ -33,22 +35,22 @@
         @dragenter.stop="dropPosition = index"
         @drop.stop="onDrop"
       >
-        <TrackedLocation
-          :location="trackedItem.location"
-          :weather="trackedItem.forecast ? trackedItem.forecast[0] : null"
-          :isLoading="trackedItem.isLoading"
-        />
+        <TrackedLocation :location="trackedLocation" />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 import TrackedLocation from "./TrackedLocation.vue";
 export default {
   components: { TrackedLocation },
-  props: {
-    trackedLocations: Array
+
+  computed: {
+    ...mapState({
+      trackedLocations: (state) => state.trackedLocations
+    })
   },
 
   data() {
@@ -58,12 +60,14 @@ export default {
   },
 
   methods: {
+    ...mapActions(["trackLocation"]),
+
     onDrop(evt) {
-      this.$emit(
-        "track-location",
-        JSON.parse(evt.dataTransfer.getData("application/json")).location,
-        this.dropPosition
-      );
+      this.trackLocation({
+        location: JSON.parse(evt.dataTransfer.getData("application/json"))
+          .location,
+        index: this.dropPosition
+      });
       this.dropPosition = null;
     }
   }

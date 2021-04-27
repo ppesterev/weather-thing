@@ -6,13 +6,15 @@
         ? `${Math.floor(searchResult.distance / 1000)} km`
         : this.coordinateString
     }}</span>
-    <button @click="$emit('track-location', searchResult.location)">
+    <button @click="trackLocation({ location: searchResult.location })">
       Track
     </button>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import { coordsToString } from "../utils";
 
 export default {
@@ -27,6 +29,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["trackLocation"]),
+
     onDragged(evt) {
       evt.dataTransfer.setData(
         "application/json",

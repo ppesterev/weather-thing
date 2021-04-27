@@ -13,10 +13,10 @@
         >{{ Math.floor(weather.temp) }} &deg;C</strong
       >
     </div>
-    <div class="tracked-location__loading" v-else-if="isLoading">
+    <div class="tracked-location__loading" v-else-if="location.isLoading">
       Loading...
     </div>
-    <div class="tracked-location__controls" v-if="!isLoading">
+    <div class="tracked-location__controls" v-if="!location.isLoading">
       <button @click="$emit('untrack-location', location.woeid)">
         Untrack
       </button>
@@ -30,9 +30,14 @@
 <script>
 export default {
   props: {
-    location: Object,
-    weather: Object,
-    isLoading: Boolean
+    location: Object
+  },
+
+  computed: {
+    weather() {
+      const forecast = this.location?.forecast;
+      return forecast ? forecast[0] : null;
+    }
   }
 };
 </script>
