@@ -47,16 +47,16 @@ import TrackedLocation from "./TrackedLocation.vue";
 export default {
   components: { TrackedLocation },
 
-  computed: {
-    ...mapState({
-      trackedLocations: (state) => state.trackedLocations
-    })
-  },
-
   data() {
     return {
       dropPosition: null
     };
+  },
+
+  computed: {
+    ...mapState({
+      trackedLocations: (state) => state.trackedLocations
+    })
   },
 
   methods: {

@@ -42,6 +42,44 @@ export default {
     }
   },
 
+  methods: {
+    ...mapActions(["distanceSearch"]),
+
+    ...mapMutations(["viewLocation"]),
+
+    fitMapToMarkers() {
+      if (!this.trackedLocations || this.trackedLocations.length === 0) {
+        this.leafletMap.setView([10, 10], 2);
+        return;
+      }
+
+      const latitudes = this.trackedLocations
+        .map((tracked) => tracked.coords.latt)
+        .sort((a, b) => a - b);
+      const longitudes = this.trackedLocations
+        .map((tracked) => tracked.coords.long)
+        .sort((a, b) => a - b);
+
+      const [minLatt, maxLatt] = [
+        latitudes[0],
+        latitudes[latitudes.length - 1]
+      ];
+
+      const [minLong, maxLong] = [
+        longitudes[0],
+        longitudes[longitudes.length - 1]
+      ];
+
+      this.leafletMap.fitBounds(
+        [
+          [minLatt, minLong],
+          [maxLatt, maxLong]
+        ],
+        { maxZoom: 10 }
+      );
+    }
+  },
+
   watch: {
     markers: {
       handler(newMarkers, oldMarkers) {
@@ -76,42 +114,6 @@ export default {
         this.distanceSearch({ coords: { latt: lat, long: lng } });
       }.bind(this)
     );
-  },
-
-  methods: {
-    ...mapActions(["distanceSearch"]),
-    ...mapMutations(["viewLocation"]),
-    fitMapToMarkers() {
-      if (!this.trackedLocations || this.trackedLocations.length === 0) {
-        this.leafletMap.setView([10, 10], 2);
-        return;
-      }
-
-      const latitudes = this.trackedLocations
-        .map((tracked) => tracked.coords.latt)
-        .sort((a, b) => a - b);
-      const longitudes = this.trackedLocations
-        .map((tracked) => tracked.coords.long)
-        .sort((a, b) => a - b);
-
-      const [minLatt, maxLatt] = [
-        latitudes[0],
-        latitudes[latitudes.length - 1]
-      ];
-
-      const [minLong, maxLong] = [
-        longitudes[0],
-        longitudes[longitudes.length - 1]
-      ];
-
-      this.leafletMap.fitBounds(
-        [
-          [minLatt, minLong],
-          [maxLatt, maxLong]
-        ],
-        { maxZoom: 10 }
-      );
-    }
   }
 };
 </script>

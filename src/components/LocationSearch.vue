@@ -34,6 +34,11 @@ const SEARCH_INPUT_DELAY = 600;
 export default {
   components: { LocationSearchItem },
 
+  data: () => ({
+    searchFieldText: "",
+    isTyping: false
+  }),
+
   computed: {
     ...mapState({
       results: (state) => state.search.results,
@@ -41,17 +46,6 @@ export default {
       distanceSearchOrigin: (state) => state.search.distanceSearchOrigin
     })
   },
-
-  watch: {
-    distanceSearchOrigin: function(newCoords) {
-      this.searchFieldText = coordsToString(newCoords);
-    }
-  },
-
-  data: () => ({
-    searchFieldText: "",
-    isTyping: false
-  }),
 
   methods: {
     ...mapMutations(["cancelSearch"]),
@@ -71,6 +65,12 @@ export default {
       this.isTyping = true;
       this.cancelSearch();
       this.requestSearch(term);
+    }
+  },
+
+  watch: {
+    distanceSearchOrigin: function(newCoords) {
+      this.searchFieldText = coordsToString(newCoords);
     }
   }
 };
