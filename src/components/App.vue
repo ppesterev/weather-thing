@@ -91,7 +91,7 @@ body {
 .app__main-panel {
   grid-area: main;
   display: grid;
-  grid-template-columns: 2fr 2fr 5fr;
+  grid-template-columns: 2fr 3fr 7fr;
   grid-template-rows: minmax(auto, 500px);
   grid-template-areas: "search tracked map";
 

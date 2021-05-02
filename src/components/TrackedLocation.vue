@@ -17,12 +17,18 @@
       Loading...
     </div>
     <div class="tracked-location__controls" v-if="!location.isLoading">
-      <button @click="removeTrackedLocation({ woeid: location.woeid })">
-        Untrack
-      </button>
-      <button @click="viewLocation({ woeid: location.woeid })">
-        View forecast
-      </button>
+      <BaseButton
+        value="Untrack"
+        @click="removeTrackedLocation({ woeid: location.woeid })"
+      >
+        <XIcon />
+      </BaseButton>
+      <BaseButton
+        value="View forecast"
+        @click="viewLocation({ woeid: location.woeid })"
+      >
+        <ChevronsDownIcon />
+      </BaseButton>
     </div>
   </article>
 </template>
@@ -30,7 +36,17 @@
 <script>
 import { mapMutations } from "vuex";
 
+import { XIcon, ChevronsDownIcon } from "vue-feather-icons";
+
+import BaseButton from "./BaseButton";
+
 export default {
+  components: {
+    BaseButton,
+    XIcon,
+    ChevronsDownIcon
+  },
+
   props: {
     location: Object
   },

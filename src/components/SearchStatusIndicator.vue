@@ -1,6 +1,6 @@
 <template>
-  <Edit2Icon size="1x" class="status--typing" v-if="isTyping" />
-  <RefreshCwIcon size="1x" class="status--loading" v-else-if="isLoading" />
+  <Edit2Icon class="status--typing" v-if="isTyping" />
+  <RefreshCwIcon class="status--loading" v-else-if="isLoading" />
 </template>
 
 <script>
