@@ -7,8 +7,7 @@
         :value="searchFieldText"
         @input="onSearchTermChanged($event.target.value)"
       />
-      <span v-if="this.isTyping">Typing...</span>
-      <span v-else-if="this.isFetching">Fetching...</span>
+      <SearchStatusIndicator :isLoading="isFetching" :isTyping="isTyping" />
     </div>
     <ul class="location-search__list">
       <li
@@ -28,11 +27,12 @@ import { mapMutations, mapActions, mapState, mapGetters } from "vuex";
 import { coordsToString, debounce } from "../utils";
 
 import LocationSearchItem from "./LocationSearchItem.vue";
+import SearchStatusIndicator from "./SearchStatusIndicator";
 
 const SEARCH_INPUT_DELAY = 600;
 
 export default {
-  components: { LocationSearchItem },
+  components: { LocationSearchItem, SearchStatusIndicator },
 
   data: () => ({
     searchFieldText: "",
