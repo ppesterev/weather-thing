@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <div class="app__panel app__main-panel">
+      <Toolbar class="app__toolbar" />
       <LocationSearch class="app__location-search" />
       <TrackedLocationsList class="app__tracked-list" />
       <WorldMap class="app__map" />
@@ -23,6 +24,7 @@
 <script>
 import { mapState } from "vuex";
 
+import Toolbar from "./Toolbar.vue";
 import LocationSearch from "./LocationSearch.vue";
 import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
@@ -32,6 +34,7 @@ export default {
   name: "App",
 
   components: {
+    Toolbar,
     LocationSearch,
     WorldMap,
     TrackedLocationsList,
@@ -92,11 +95,17 @@ body {
   grid-area: main;
   display: grid;
   grid-template-columns: 2fr 3fr 7fr;
-  grid-template-rows: minmax(auto, 500px);
-  grid-template-areas: "search tracked map";
+  grid-template-rows: auto minmax(auto, 500px);
+  grid-template-areas:
+    "toolbar toolbar map"
+    "search tracked map";
 
   border-radius: 0 0 10px 10px;
   overflow: hidden;
+}
+
+.app__toolbar {
+  grid-area: toolbar;
 }
 
 .app__map {

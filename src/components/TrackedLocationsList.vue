@@ -1,6 +1,5 @@
 <template>
   <div class="tracked-locations" @dragend="dropPosition = null">
-    <div class="tracked-locations__filters"></div>
     <ul
       :class="
         `tracked-locations__list ${
@@ -76,7 +75,6 @@ export default {
 <style scoped>
 .tracked-locations {
   display: grid;
-  grid-template-rows: minmax(40px, auto) 1fr;
 }
 
 .tracked-locations__list--drop-target::after,
@@ -90,11 +88,6 @@ export default {
   background-color: rgba(70, 131, 180, 0.05);
   border: 2px dashed steelblue;
   border-radius: 10px;
-}
-
-.tracked-locations__filters {
-  background-color: steelblue;
-  height: 40px;
 }
 
 .tracked-locations__list {
