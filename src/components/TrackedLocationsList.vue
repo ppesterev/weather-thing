@@ -93,7 +93,7 @@ export default {
 }
 
 .tracked-locations__filters {
-  background-color: rgb(173, 207, 235);
+  background-color: steelblue;
   height: 40px;
 }
 

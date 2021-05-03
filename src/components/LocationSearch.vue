@@ -7,6 +7,7 @@
         :value="searchFieldText"
         @input="onSearchTermChanged($event.target.value)"
       />
+      <SearchIcon size="1x" class="location-search__search-icon" />
       <SearchStatusIndicator :isLoading="isFetching" :isTyping="isTyping" />
     </div>
     <ul class="location-search__list">
@@ -26,13 +27,15 @@ import { mapMutations, mapActions, mapState, mapGetters } from "vuex";
 
 import { coordsToString, debounce } from "../utils";
 
+import { SearchIcon } from "vue-feather-icons";
+
 import LocationSearchItem from "./LocationSearchItem.vue";
 import SearchStatusIndicator from "./SearchStatusIndicator";
 
 const SEARCH_INPUT_DELAY = 600;
 
 export default {
-  components: { LocationSearchItem, SearchStatusIndicator },
+  components: { LocationSearchItem, SearchStatusIndicator, SearchIcon },
 
   data: () => ({
     searchFieldText: "",
@@ -85,8 +88,32 @@ export default {
 }
 
 .location-search__bar {
-  background-color: rgb(173, 207, 235);
-  height: 40px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  place-items: center;
+  padding: 5px;
+
+  color: white;
+
+  background-color: steelblue;
+}
+
+.location-search__field {
+  padding: 5px 8px 5px 24px;
+
+  font: inherit;
+  color: inherit;
+
+  background-color: rgb(34, 65, 90);
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.location-search__search-icon {
+  position: absolute;
+  left: 10px;
 }
 
 .location-search__list {
