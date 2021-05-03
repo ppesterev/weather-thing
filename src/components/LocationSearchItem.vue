@@ -7,10 +7,11 @@
         : this.coordinateString
     }}</span>
     <BaseButton
+      class="search-result__btn-add"
       value="Add to tracked locations"
       @click="trackLocation({ location: searchResult })"
     >
-      <PlusIcon size="1x" />
+      <PlusIcon />
     </BaseButton>
   </div>
 </template>
@@ -56,6 +57,10 @@ export default {
 <style scoped>
 .search-result {
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 5px;
+
   padding: 5px;
 
   border-radius: 5px;
@@ -88,5 +93,11 @@ export default {
 
 .search-result:hover .search-result__position {
   color: white;
+}
+
+.search-result__btn-add {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: flex-start;
 }
 </style>

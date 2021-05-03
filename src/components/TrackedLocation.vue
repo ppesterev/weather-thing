@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .tracked-location {
   display: grid;
-  grid-template-columns: 5fr 2fr;
+  grid-template-columns: 1fr auto;
   grid-template-rows: auto 30px;
   grid-gap: 10px;
 
@@ -107,7 +107,7 @@ export default {
 .tracked-location__controls {
   grid-row: 1 / span 2;
   grid-column: 2;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-gap: 5px;
 }
 </style>

@@ -17,11 +17,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .btn {
   display: inline-grid;
   grid-auto-flow: column;
   place-items: center;
   grid-gap: 5px;
+
+  cursor: pointer;
 }
 </style>
