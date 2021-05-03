@@ -34,11 +34,6 @@ export default {
 
 <style scoped>
 .forecast-day {
-  padding: 10px;
-
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 1px 1px 5px -2px grey;
 }
 
 .forecast-day__date {
