@@ -6,9 +6,12 @@
         ? `${Math.floor(searchResult.distance / 1000)} km`
         : this.coordinateString
     }}</span>
-    <button @click="trackLocation({ location: searchResult })">
-      Track
-    </button>
+    <BaseButton
+      value="Add to tracked locations"
+      @click="trackLocation({ location: searchResult })"
+    >
+      <PlusIcon size="1x" />
+    </BaseButton>
   </div>
 </template>
 
@@ -17,7 +20,16 @@ import { mapActions } from "vuex";
 
 import { coordsToString } from "../utils";
 
+import { PlusIcon } from "vue-feather-icons";
+
+import BaseButton from "./BaseButton.vue";
+
 export default {
+  components: {
+    BaseButton,
+    PlusIcon
+  },
+
   props: {
     searchResult: Object
   },
