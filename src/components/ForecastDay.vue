@@ -21,6 +21,9 @@
         height="100"
       />
     </div>
+    <div class="forecast-day__confidence">
+      Confidence: {{ forecastDay.predictability }}%
+    </div>
   </div>
 </template>
 
@@ -33,9 +36,6 @@ export default {
 </script>
 
 <style scoped>
-.forecast-day {
-}
-
 .forecast-day__date {
   margin: 0 0 20px 0;
 }
@@ -64,5 +64,12 @@ export default {
 .forecast-day__temp-range {
   grid-row: 2;
   grid-column: 2;
+}
+
+.forecast-day__confidence {
+  margin-top: 10px;
+  color: grey;
+  font-size: 0.9em;
+  font-style: italic;
 }
 </style>
