@@ -1,6 +1,8 @@
 <template>
-  <Edit2Icon class="status--typing" v-if="isTyping" />
-  <RefreshCwIcon class="status--loading" v-else-if="isLoading" />
+  <span class="status">
+    <Edit2Icon class="status__icon--typing" v-if="isTyping" />
+    <RefreshCwIcon class="status__icon--loading" v-else-if="isLoading" />
+  </span>
 </template>
 
 <script>
@@ -20,17 +22,21 @@ export default {
 </script>
 
 <style scoped>
-.status--typing,
+.status {
+  filter: drop-shadow(1px 2px 2px rgb(44, 44, 44));
+}
+
+.status__icon--typing,
 .status--loading {
   position: relative;
   transform-origin: center;
 }
 
-.status--typing {
+.status__icon--typing {
   animation: typing 0.7s linear infinite;
 }
 
-.status--loading {
+.status__icon--loading {
   animation: loading 1s linear infinite;
 }
 
