@@ -6,6 +6,7 @@
     <ForecastDay
       class="location-details__current-weather"
       :forecastDay="currentWeather"
+      isToday
     />
     <ul class="location-details__forecast">
       <li

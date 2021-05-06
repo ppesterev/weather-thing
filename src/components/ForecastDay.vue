@@ -32,14 +32,15 @@ import dayjs from "dayjs";
 
 export default {
   props: {
-    forecastDay: Object
+    forecastDay: Object,
+    isToday: Boolean
   },
 
   computed: {
     title() {
       const day = dayjs(this.forecastDay.date);
       const humanDate = day.format("D MMMM");
-      if (day.isSame(dayjs(), "day")) {
+      if (this.isToday) {
         return `Today, ${humanDate}`;
       }
       return humanDate;
