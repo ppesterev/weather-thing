@@ -27,7 +27,7 @@
         value="View forecast"
         @click="viewLocation({ woeid: location.woeid })"
       >
-        <ChevronsDownIcon />
+        <CalendarIcon />
       </BaseButton>
     </div>
   </article>
@@ -36,7 +36,7 @@
 <script>
 import { mapMutations } from "vuex";
 
-import { XIcon, ChevronsDownIcon } from "vue-feather-icons";
+import { XIcon, CalendarIcon } from "vue-feather-icons";
 
 import BaseButton from "./BaseButton";
 
@@ -44,7 +44,7 @@ export default {
   components: {
     BaseButton,
     XIcon,
-    ChevronsDownIcon
+    CalendarIcon
   },
 
   props: {
