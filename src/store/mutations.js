@@ -46,6 +46,10 @@ const mutations = {
     );
   },
 
+  setTrackedLocations(state, { locations }) {
+    state.trackedLocations = locations;
+  },
+
   viewLocation(state, { woeid }) {
     state.viewedLocation =
       (woeid &&

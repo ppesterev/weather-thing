@@ -51,7 +51,7 @@ export const searchByDistance = (coords) => {
 
 export const getLocationDetails = (woeid) => {
   return axios.get(getFullUrl(`location/${woeid}`)).then((response) => ({
-    location: parseLocation(response.data),
+    ...parseLocation(response.data),
     forecast: response.data.consolidated_weather
       .map(parseWeather)
       .sort((a, b) => a.date.getTime() - b.date.getTime())

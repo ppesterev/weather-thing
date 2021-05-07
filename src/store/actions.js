@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { searchLocation, searchByDistance, getLocationDetails } from "../api";
+import { getItem, Key } from "../storage";
 
 const actions = {
   search({ commit }, { term, coords }) {
@@ -18,8 +19,8 @@ const actions = {
     commit("addTrackedLocation", { location: newTrackedLocation, index });
 
     getLocationDetails(location.woeid)
-      .then(({ location, forecast }) => {
-        const updatedLocation = { ...location, forecast, isLoading: false };
+      .then((location) => {
+        const updatedLocation = { ...location, isLoading: false };
         commit("updateTrackedLocation", { location: updatedLocation });
       })
       .catch(() => {
@@ -30,6 +31,31 @@ const actions = {
           }
         });
       });
+  },
+
+  loadTrackedLocations({ commit }) {
+    const trackedLocations = getItem(Key.TRACKED_LOCATIONS) || [];
+    commit("setTrackedLocations", {
+      locations: trackedLocations.map((location) => ({
+        ...location,
+        isLoading: true
+      }))
+    });
+
+    Promise.all(
+      trackedLocations.map((location) => getLocationDetails(location.woeid))
+    )
+      .then((updatedLocations) =>
+        commit("setTrackedLocations", { locations: updatedLocations })
+      )
+      .catch(() =>
+        commit("setTrackedLocations", {
+          locations: trackedLocations.map((location) => ({
+            ...location,
+            isLoading: false
+          }))
+        })
+      );
   }
 };
 

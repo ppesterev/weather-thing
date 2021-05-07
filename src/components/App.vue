@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 import Toolbar from "./Toolbar.vue";
 import LocationSearch from "./LocationSearch.vue";
@@ -45,6 +45,14 @@ export default {
     ...mapState({
       viewedLocation: (state) => state.viewedLocation
     })
+  },
+
+  methods: {
+    ...mapActions(["loadTrackedLocations"])
+  },
+
+  mounted() {
+    this.loadTrackedLocations();
   }
 };
 </script>
