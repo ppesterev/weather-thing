@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .location-search {
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .location-search__list {

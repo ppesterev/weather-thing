@@ -75,6 +75,7 @@ export default {
 <style scoped>
 .tracked-locations {
   display: grid;
+  overflow-y: auto;
 }
 
 .tracked-locations__list--drop-target::after,
