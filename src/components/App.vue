@@ -102,7 +102,7 @@ body {
 .app__main-panel {
   grid-area: main;
   display: grid;
-  grid-template-columns: 2fr 3fr 7fr;
+  grid-template-columns: 3fr 3fr 7fr;
   grid-template-rows: auto minmax(auto, 500px);
   grid-template-areas:
     "toolbar toolbar map"
@@ -110,6 +110,29 @@ body {
 
   border-radius: 0 0 10px 10px;
   overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .app__main-panel {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 500px 500px;
+    grid-template-areas:
+      "toolbar toolbar"
+      "search tracked"
+      "map map";
+  }
+}
+
+@media (max-width: 420px) {
+  .app__main-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app__location-search,
+  .app__tracked-list {
+    max-height: 400px;
+  }
 }
 
 .app__toolbar {
