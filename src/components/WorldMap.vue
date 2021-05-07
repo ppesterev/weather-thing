@@ -43,7 +43,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["distanceSearch"]),
+    ...mapActions(["search"]),
 
     ...mapMutations(["viewLocation"]),
 
@@ -111,7 +111,7 @@ export default {
       "dblclick",
       function(evt) {
         const { lat, lng } = evt.latlng;
-        this.distanceSearch({ coords: { latt: lat, long: lng } });
+        this.search({ coords: { latt: lat, long: lng } });
       }.bind(this)
     );
   }

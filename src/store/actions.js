@@ -1,18 +1,16 @@
+import { nanoid } from "nanoid";
 import { searchLocation, searchByDistance, getLocationDetails } from "../api";
 
 const actions = {
-  search({ commit }, { term }) {
-    commit("startSearch");
-    searchLocation(term)
-      .then((results) => commit("finishSearch", { results }))
-      .catch(() => commit("finishSearch", { results: [] }));
-  },
+  search({ commit }, { term, coords }) {
+    const requestId = nanoid(6);
 
-  distanceSearch({ commit }, { coords }) {
-    commit("startDistanceSearch", { coords });
-    searchByDistance(coords)
-      .then((results) => commit("finishSearch", { results }))
-      .catch(() => commit("finishSearch", { results: [] }));
+    commit("startSearch", { coords, requestId });
+    const apiAction = coords ? searchByDistance(coords) : searchLocation(term);
+
+    apiAction
+      .then((results) => commit("finishSearch", { results, requestId }))
+      .catch(() => commit("finishSearch", { results: [], requestId }));
   },
 
   trackLocation({ commit }, { location, index }) {

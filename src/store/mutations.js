@@ -1,25 +1,22 @@
 const mutations = {
-  startSearch(state) {
+  startSearch(state, { coords, requestId }) {
     state.search.isLoading = true;
-  },
-
-  startDistanceSearch(state, { coords }) {
-    state.search.isLoading = true;
-    state.search.distanceSearchOrigin = coords;
+    state.search.lastRequestId = requestId;
+    if (coords) {
+      state.search.distanceSearchOrigin = coords;
+    }
   },
 
   cancelSearch(state) {
-    if (state.search.isLoading) {
-      state.search.isCancelled = true;
-    }
+    state.search.lastRequestId = null;
+    state.search.isLoading = false;
   },
 
-  finishSearch(state, { results }) {
-    if (!state.search.isCancelled) {
+  finishSearch(state, { results, requestId }) {
+    if (requestId === state.search.lastRequestId) {
       state.search.results = results;
+      state.search.isLoading = false;
     }
-    state.search.isLoading = false;
-    state.search.isCancelled = false;
   },
 
   addTrackedLocation(state, { location, index = 0 }) {

@@ -1,7 +1,7 @@
 const initialState = {
   search: {
     isLoading: false,
-    isCancelled: false,
+    lastRequestId: null,
     results: [],
     distanceSearchOrigin: null
   },
