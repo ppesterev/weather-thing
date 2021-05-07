@@ -13,7 +13,7 @@
         >{{ Math.floor(weather.temp) }} &deg;C</strong
       >
     </div>
-    <div class="tracked-location__loading" v-else-if="location.isLoading">
+    <div class="tracked-location__loading" v-if="location.isLoading">
       Loading...
     </div>
     <div class="tracked-location__controls" v-if="!location.isLoading">
@@ -82,10 +82,14 @@ export default {
   margin: 0;
 }
 
-.tracked-location__weather,
-.tracked-location__loading {
+.tracked-location__weather {
   grid-row: 2;
   grid-column: 1;
+}
+
+.tracked-location__loading {
+  grid-row: 1 / span 2;
+  grid-column: 2;
 }
 
 .tracked-location__weather {

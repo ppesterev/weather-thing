@@ -34,26 +34,27 @@ const actions = {
   },
 
   loadTrackedLocations({ commit }) {
+    const setLoadingStatus = (status) => (location) => ({
+      ...location,
+      isLoading: status
+    });
+
     const trackedLocations = getItem(Key.TRACKED_LOCATIONS) || [];
     commit("setTrackedLocations", {
-      locations: trackedLocations.map((location) => ({
-        ...location,
-        isLoading: true
-      }))
+      locations: trackedLocations.map(setLoadingStatus(true))
     });
 
     Promise.all(
       trackedLocations.map((location) => getLocationDetails(location.woeid))
     )
       .then((updatedLocations) =>
-        commit("setTrackedLocations", { locations: updatedLocations })
+        commit("setTrackedLocations", {
+          locations: updatedLocations.map(setLoadingStatus(false))
+        })
       )
       .catch(() =>
         commit("setTrackedLocations", {
-          locations: trackedLocations.map((location) => ({
-            ...location,
-            isLoading: false
-          }))
+          locations: trackedLocations.map(setLoadingStatus(false))
         })
       );
   }
