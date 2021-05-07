@@ -22,9 +22,17 @@
       />
     </div>
     <div class="forecast-day__info">
-      <WindIcon class="forecast-day__info-icon" size="1.5x" aria-label="Wind" />
+      <WindIcon class="forecast-day__info-icon" size="1x" aria-label="Wind" />
       {{ forecastDay.wind.speed.toFixed(1) }} m/s
       {{ forecastDay.wind.direction }}
+    </div>
+    <div class="forecast-day__info">
+      <DropletIcon
+        class="forecast-day__info-icon"
+        size="1x"
+        aria-label="Humidity"
+      />
+      {{ forecastDay.humidity }}%
     </div>
     <div class="forecast-day__confidence">
       Confidence: {{ forecastDay.predictability }}%
@@ -35,11 +43,12 @@
 <script>
 import dayjs from "dayjs";
 
-import { WindIcon } from "vue-feather-icons";
+import { WindIcon, DropletIcon } from "vue-feather-icons";
 
 export default {
   components: {
-    WindIcon
+    WindIcon,
+    DropletIcon
   },
 
   props: {
@@ -93,7 +102,8 @@ export default {
 
 .forecast-day__info {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 5px;
   align-items: center;
 
   margin-top: 10px;
@@ -102,11 +112,12 @@ export default {
 }
 
 .forecast-day__info-icon {
+  font-size: 18px;
   color: slategrey;
 }
 
 .forecast-day__confidence {
-  margin-top: 10px;
+  margin-top: 20px;
   color: grey;
   font-size: 0.9em;
   font-style: italic;

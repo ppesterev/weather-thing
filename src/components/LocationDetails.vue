@@ -62,8 +62,6 @@ export default {
   grid-row: 2;
   grid-column: 1;
 
-  padding: 10px;
-
   font-size: 18px;
 
   border-right: 1px solid grey;

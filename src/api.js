@@ -30,7 +30,7 @@ const parseWeather = (weatherData) => ({
     speed: weatherData.wind_speed,
     direction: weatherData.wind_direction_compass
   },
-  pressure: weatherData.air_pressure,
+  humidity: weatherData.humidity,
   predictability: weatherData.predictability,
   icon: `https://www.metaweather.com/static/img/weather/${weatherData.weather_state_abbr}.svg`
 });
