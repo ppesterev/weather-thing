@@ -26,6 +26,11 @@ const parseWeather = (weatherData) => ({
   minTemp: weatherData.min_temp,
   maxTemp: weatherData.max_temp,
   weatherType: weatherData.weather_state_name,
+  wind: {
+    speed: weatherData.wind_speed,
+    direction: weatherData.wind_direction_compass
+  },
+  pressure: weatherData.air_pressure,
   predictability: weatherData.predictability,
   icon: `https://www.metaweather.com/static/img/weather/${weatherData.weather_state_abbr}.svg`
 });

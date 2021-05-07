@@ -64,6 +64,8 @@ export default {
 
   padding: 10px;
 
+  font-size: 18px;
+
   border-right: 1px solid grey;
 }
 
