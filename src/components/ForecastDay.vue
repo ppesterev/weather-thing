@@ -1,11 +1,15 @@
 <template>
-  <div class="forecast-day">
+  <div :class="`forecast-day${isToday ? ' forecast-day--today' : ''}`">
     <h3 class="forecast-day__date">
       <time :datetime="forecastDay.date.toISOString()">
         {{ title }}
       </time>
     </h3>
     <div class="forecast-day__basic-info">
+      <strong class="forecast-day__weather-type" v-if="isToday">
+        {{ forecastDay.weatherType }}
+      </strong>
+
       <strong class="forecast-day__temp"
         >{{ forecastDay.temp.toFixed(1) }} &deg;C</strong
       >
@@ -77,26 +81,32 @@ export default {
 .forecast-day__basic-info {
   display: grid;
   grid-template-rows: auto auto;
-  grid-template-columns: 50px auto;
-  grid-gap: 5px;
+  grid-template-columns: 50px 1fr;
+  grid-gap: 0 10px;
+}
+
+.forecast-day--today .forecast-day__basic-info {
+  grid-template-rows: 1fr auto auto;
+  grid-template-columns: 80px 1fr;
 }
 
 .forecast-day__icon {
-  grid-row: 1 / span 2;
+  grid-row: 1 / -1;
   grid-column: 1;
+
   width: 100%;
   height: auto;
 }
 
 .forecast-day__temp {
-  grid-row: 1;
+  grid-row: -3;
   grid-column: 2;
 
   font-size: 1.1em;
 }
 
 .forecast-day__temp-range {
-  grid-row: 2;
+  grid-row: -2;
   grid-column: 2;
 }
 
