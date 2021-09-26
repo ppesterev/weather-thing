@@ -44,23 +44,34 @@ export default {
 <style scoped>
 .location-details {
   display: grid;
-  grid-template-rows: auto auto;
   grid-template-columns: 1fr 4fr;
+  grid-template-areas:
+    "title title"
+    "current forecast";
   grid-gap: 20px 10px;
 
   padding: 10px;
 }
 
+@media (max-width: 560px) {
+  .location-details {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "current"
+      "forecast";
+  }
+}
+
 .location-details__title {
-  grid-row: 1;
-  grid-column: 1/ -1;
+  grid-area: title;
 
   margin: 0;
 }
 
 .location-details__current-weather {
-  grid-row: 2;
-  grid-column: 1;
+  grid-area: current;
+  min-width: 240px;
 
   font-size: 18px;
 
@@ -68,6 +79,7 @@ export default {
 }
 
 .location-details__forecast {
+  grid-area: forecast;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 10px 5px;
