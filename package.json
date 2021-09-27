@@ -15,6 +15,7 @@
     "nanoid": "^3.1.22",
     "vue": "^2.6.11",
     "vue-feather-icons": "^5.1.0",
+    "vue-match-media": "1.0.3",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
