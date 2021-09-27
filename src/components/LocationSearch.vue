@@ -1,5 +1,7 @@
 <template>
   <div class="location-search">
+    <SearchBar v-if="$mq.collapseLists" class="location-search__bar" />
+
     <ul class="location-search__list">
       <li
         class="location-search__item"
@@ -16,9 +18,10 @@
 import { mapGetters } from "vuex";
 
 import LocationSearchItem from "./LocationSearchItem.vue";
+import SearchBar from "./SearchBar.vue";
 
 export default {
-  components: { LocationSearchItem },
+  components: { LocationSearchItem, SearchBar },
 
   computed: {
     ...mapGetters({
@@ -31,6 +34,11 @@ export default {
 <style scoped>
 .location-search {
   overflow-y: auto;
+}
+
+.location-search__bar {
+  margin: 3px;
+  border-radius: 5px;
 }
 
 .location-search__list {

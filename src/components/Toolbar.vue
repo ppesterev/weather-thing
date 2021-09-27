@@ -1,6 +1,6 @@
 <template>
   <div class="toolbar">
-    <SearchBar class="toolbar__search" />
+    <SearchBar v-if="!$mq.collapseLists" class="toolbar__search" />
   </div>
 </template>
 
@@ -17,7 +17,6 @@ export default {
 <style scoped>
 .toolbar {
   display: flex;
-  padding: 5px;
 
   color: white;
 

@@ -3,7 +3,10 @@
     <div class="app__panel app__main-panel">
       <Toolbar class="app__toolbar" />
       <LocationSearch class="app__location-search" />
-      <TrackedLocationsList class="app__tracked-list" />
+      <TrackedLocationsList
+        v-if="!$mq.collapseLists"
+        class="app__tracked-list"
+      />
       <WorldMap class="app__map" />
     </div>
     <LocationDetails
@@ -112,29 +115,6 @@ body {
   overflow: hidden;
 }
 
-@media (max-width: 900px) {
-  .app__main-panel {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 500px 500px;
-    grid-template-areas:
-      "toolbar toolbar"
-      "search tracked"
-      "map map";
-  }
-}
-
-@media (max-width: 420px) {
-  .app__main-panel {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .app__location-search,
-  .app__tracked-list {
-    max-height: 400px;
-  }
-}
-
 .app__toolbar {
   grid-area: toolbar;
 }
@@ -163,5 +143,31 @@ body {
   padding: 10px;
 
   border-radius: 10px 10px 0 0;
+}
+
+@media (max-width: 900px) {
+  .app__main-panel {
+    grid-template-columns: 6fr 7fr;
+    grid-template-areas:
+      "toolbar map"
+      "list map";
+  }
+
+  .app__location-search,
+  .app__tracked-list {
+    grid-area: list;
+  }
+}
+
+@media (max-width: 420px) {
+  /* .app__main-panel {
+    display: flex;
+    flex-direction: column;
+  } */
+
+  .app__location-search,
+  .app__tracked-list {
+    max-height: 400px;
+  }
 }
 </style>

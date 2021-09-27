@@ -8,7 +8,7 @@
     />
     <SearchIcon size="1x" class="search__icon" />
     <SearchStatusIndicator
-      class=""
+      class="search__spinner"
       :isLoading="isFetching"
       :isTyping="isTyping"
     />
@@ -76,8 +76,13 @@ export default {
 .search {
   position: relative;
   display: grid;
-  place-items: center;
+  place-items: center stretch;
   grid-template-columns: 1fr 40px;
+
+  padding: 5px;
+
+  color: white;
+  background-color: steelblue;
 }
 
 .search__field {
@@ -94,6 +99,10 @@ export default {
 
 .search__icon {
   position: absolute;
-  left: 5px;
+  left: 10px;
+}
+
+.search__spinner {
+  place-self: center;
 }
 </style>

@@ -10,8 +10,8 @@ Vue.config.productionTip = false;
 new Vue({
   store,
   mq: {
-    phone: "(max-width: 560px)",
-    tablet: "(max-width: 900px)"
+    dropMap: "(max-width: 560px)",
+    collapseLists: "(max-width: 900px)"
   },
   render: (h) => h(App)
 }).$mount("#app");
