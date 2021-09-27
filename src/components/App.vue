@@ -2,9 +2,12 @@
   <div class="app">
     <div class="app__panel app__main-panel">
       <Toolbar class="app__toolbar" />
-      <LocationSearch class="app__location-search" />
+      <LocationSearch
+        v-if="!$mq.collapseLists || isDisplayingSearch"
+        class="app__location-search"
+      />
       <TrackedLocationsList
-        v-if="!$mq.collapseLists"
+        v-if="!$mq.collapseLists || !isDisplayingSearch"
         class="app__tracked-list"
       />
       <WorldMap class="app__map" />
@@ -33,6 +36,8 @@ import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
 import LocationDetails from "./LocationDetails.vue";
 
+import { DisplayedList } from "../const";
+
 export default {
   name: "App",
 
@@ -46,7 +51,9 @@ export default {
 
   computed: {
     ...mapState({
-      viewedLocation: (state) => state.viewedLocation
+      viewedLocation: (state) => state.viewedLocation,
+      isDisplayingSearch: (state) =>
+        state.displayedList === DisplayedList.SEARCH
     })
   },
 

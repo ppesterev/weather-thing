@@ -1,4 +1,7 @@
+import { DisplayedList } from "../const";
+
 const initialState = {
+  displayedList: DisplayedList.SEARCH,
   search: {
     isLoading: false,
     lastRequestId: null,

@@ -1,4 +1,8 @@
 const mutations = {
+  switchDisplayedList(state, { displayedList }) {
+    state.displayedList = displayedList;
+  },
+
   startSearch(state, { coords, requestId }) {
     state.search.isLoading = true;
     state.search.lastRequestId = requestId;
