@@ -1,38 +1,41 @@
 <template>
   <div class="list-switch">
-    <BaseButton class="list-switch__btn" @click="displaySearch" value="Search">
+    <label>
+      <input
+        type="radio"
+        name="list-switch"
+        :value="DisplayedList.SEARCH"
+        :checked="displayedList === DisplayedList.SEARCH"
+        @change="switchDisplayedList({ displayedList: DisplayedList.SEARCH })"
+      />
       Search
-    </BaseButton>
-    <BaseButton
-      class="list-switch__btn"
-      @click="displayTracked"
-      value="Tracked locations"
-    >
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="list-switch"
+        :value="DisplayedList.TRACKED"
+        :checked="displayedList === DisplayedList.TRACKED"
+        @change="switchDisplayedList({ displayedList: DisplayedList.TRACKED })"
+      />
       Tracked locations
-    </BaseButton>
+    </label>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapState } from "vuex";
 import { DisplayedList } from "../const";
-import BaseButton from "./BaseButton.vue";
 export default {
-  components: { BaseButton },
   computed: {
     ...mapState({
       displayedList: (state) => state.displayedList
-    })
+    }),
+    DisplayedList: () => DisplayedList
   },
 
   methods: {
-    ...mapMutations(["switchDisplayedList"]),
-    displaySearch() {
-      this.switchDisplayedList({ displayedList: DisplayedList.SEARCH });
-    },
-    displayTracked() {
-      this.switchDisplayedList({ displayedList: DisplayedList.TRACKED });
-    }
+    ...mapMutations(["switchDisplayedList"])
   }
 };
 </script>
