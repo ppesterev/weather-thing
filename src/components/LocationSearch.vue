@@ -33,7 +33,8 @@ export default {
 
 <style scoped>
 .location-search {
-  overflow-y: auto;
+  display: grid;
+  place-content: start stretch;
 }
 
 .location-search__bar {
@@ -42,6 +43,8 @@ export default {
 }
 
 .location-search__list {
+  max-height: 100%;
+  overflow-y: auto;
   display: grid;
   align-content: flex-start;
   grid-gap: 5px;
