@@ -12,11 +12,15 @@
       />
       <WorldMap class="app__map" v-if="!$mq.dropMap" />
     </div>
-    <LocationDetails
-      v-if="viewedLocation"
-      class="app__panel app__location-details"
-      :location="viewedLocation"
-    />
+
+    <transition>
+      <LocationDetails
+        v-if="viewedLocation"
+        class="app__panel app__location-details"
+        :location="viewedLocation"
+        :key="viewedLocation.woeid"
+      />
+    </transition>
     <footer class="app__panel app__footer">
       <div>&copy; ppesterev</div>
       <div>
@@ -102,6 +106,7 @@ body {
   padding: 0 10px;
 
   background-color: rgba(245, 245, 245, 0.7);
+  overflow-x: hidden;
 }
 
 .app__panel {
@@ -143,6 +148,18 @@ body {
   grid-area: details;
   align-self: flex-start;
   border-radius: 10px;
+}
+
+.app__location-details.v-enter {
+  transform: translateX(120%);
+}
+
+.app__location-details.v-leave-to {
+  transform: translateX(-120%);
+}
+.app__location-details.v-enter-active,
+.app__location-details.v-leave-active {
+  transition: all 0.5s ease;
 }
 
 .app__footer {
