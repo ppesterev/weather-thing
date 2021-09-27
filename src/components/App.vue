@@ -10,7 +10,7 @@
         v-if="!$mq.collapseLists || !isDisplayingSearch"
         class="app__tracked-list"
       />
-      <WorldMap class="app__map" />
+      <WorldMap class="app__map" v-if="!$mq.dropMap" />
     </div>
     <LocationDetails
       v-if="viewedLocation"
@@ -166,11 +166,14 @@ body {
   }
 }
 
-@media (max-width: 420px) {
-  /* .app__main-panel {
-    display: flex;
-    flex-direction: column;
-  } */
+@media (max-width: 560px) {
+  .app__main-panel {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "toolbar"
+      "list";
+  }
 
   .app__location-search,
   .app__tracked-list {
