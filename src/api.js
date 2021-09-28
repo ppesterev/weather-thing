@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PROXY_URL = "https://thingproxy.freeboard.io/fetch/";
+const PROXY_URL = "https://eigencors.herokuapp.com/";
 const BASE_URL = "https://www.metaweather.com/api/";
 
 const getFullUrl = (endpoint) => `${PROXY_URL}${BASE_URL}${endpoint}`;
