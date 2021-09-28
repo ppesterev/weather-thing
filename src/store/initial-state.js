@@ -1,4 +1,4 @@
-import { DisplayedList } from "../const";
+import { DisplayedList, TempScale } from "../const";
 
 const initialState = {
   displayedList: DisplayedList.SEARCH,
@@ -9,7 +9,8 @@ const initialState = {
     distanceSearchOrigin: null
   },
   trackedLocations: [],
-  viewedLocation: null
+  viewedLocation: null,
+  tempScale: TempScale.C
 };
 
 export default initialState;

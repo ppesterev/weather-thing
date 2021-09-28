@@ -1,4 +1,8 @@
 const mutations = {
+  setTempScale(state, { tempScale }) {
+    state.tempScale = tempScale;
+  },
+
   switchDisplayedList(state, { displayedList }) {
     state.displayedList = displayedList;
   },

@@ -3,20 +3,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { TempScale } from "../const";
 import { celciusToFahrenheit } from "../utils";
 
 export default {
   props: {
     celciusTemp: Number,
-    scale: {
-      validator: (scale) => scale in TempScale,
-      default: TempScale.C
-    },
     precision: Number
   },
 
   computed: {
+    ...mapState({
+      scale: (state) => state.tempScale || TempScale.C
+    }),
     formattedTemp: () => {
       const displayedValue =
         this.scale === TempScale.C
