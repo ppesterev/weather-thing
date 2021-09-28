@@ -57,6 +57,14 @@ const actions = {
           locations: trackedLocations.map(setLoadingStatus(false))
         })
       );
+  },
+
+  loadTempScale({ commit }) {
+    const tempScale = getItem(Key.TEMP_SCALE);
+    if (!tempScale) {
+      return;
+    }
+    commit("setTempScale", { tempScale });
   }
 };
 

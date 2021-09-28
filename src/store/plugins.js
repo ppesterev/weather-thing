@@ -9,6 +9,8 @@ export const syncStoragePlugin = (store) => {
       case "setTrackedLocations":
         setItem(Key.TRACKED_LOCATIONS, state.trackedLocations);
         break;
+      case "setTempScale":
+        setItem(Key.TEMP_SCALE, state.tempScale);
     }
   });
 };

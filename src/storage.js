@@ -1,7 +1,8 @@
 const KEY_PREFIX = "weather_thing_";
 
 export const Key = {
-  TRACKED_LOCATIONS: "tracked_locations"
+  TRACKED_LOCATIONS: "tracked_locations",
+  TEMP_SCALE: "temp_scale"
 };
 
 export function setItem(key, value) {

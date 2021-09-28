@@ -58,11 +58,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(["loadTrackedLocations"])
+    ...mapActions(["loadTrackedLocations", "loadTempScale"])
   },
 
   mounted() {
     this.loadTrackedLocations();
+    this.loadTempScale();
   }
 };
 </script>

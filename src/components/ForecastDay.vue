@@ -11,8 +11,8 @@
       </strong>
 
       <strong class="forecast-day__temp">
-        <TemperatureReadout :precision="1" :celciusTemp="forecastDay.temp"
-      /></strong>
+        <TemperatureReadout :precision="1" :celciusTemp="forecastDay.temp" />
+      </strong>
       <span class="forecast-day__temp-range">
         <TemperatureReadout :precision="1" :celciusTemp="forecastDay.minTemp" />
         &hellip;
@@ -85,7 +85,8 @@ export default {
 }
 
 .forecast-day__date,
-.forecast-day__basic-info {
+.forecast-day__basic-info,
+.forecast-day__confidence {
   grid-column: 1 / -1;
 }
 
