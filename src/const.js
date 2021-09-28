@@ -3,4 +3,9 @@ const DisplayedList = {
   TRACKED: "tracked"
 };
 
-export { DisplayedList };
+const TempScale = {
+  C: "c",
+  F: "f"
+};
+
+export { DisplayedList, TempScale };
