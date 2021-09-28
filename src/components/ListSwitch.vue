@@ -1,37 +1,28 @@
 <template>
-  <div class="list-switch">
-    <label>
-      <input
-        type="radio"
-        name="list-switch"
-        :value="DisplayedList.SEARCH"
-        :checked="displayedList === DisplayedList.SEARCH"
-        @change="switchDisplayedList({ displayedList: DisplayedList.SEARCH })"
-      />
-      Search
-    </label>
-    <label>
-      <input
-        type="radio"
-        name="list-switch"
-        :value="DisplayedList.TRACKED"
-        :checked="displayedList === DisplayedList.TRACKED"
-        @change="switchDisplayedList({ displayedList: DisplayedList.TRACKED })"
-      />
-      Tracked locations
-    </label>
-  </div>
+  <BaseToggle
+    :options="listOptions"
+    :selectedOption="displayedList"
+    @change="switchDisplayedList({ displayedList: $event })"
+  />
 </template>
 
 <script>
 import { mapMutations, mapState } from "vuex";
 import { DisplayedList } from "../const";
+import BaseToggle from "./BaseToggle.vue";
 export default {
+  components: {
+    BaseToggle
+  },
+
   computed: {
     ...mapState({
       displayedList: (state) => state.displayedList
     }),
-    DisplayedList: () => DisplayedList
+    listOptions: () => [
+      { value: DisplayedList.SEARCH, label: "Search" },
+      { value: DisplayedList.TRACKED, label: "Tracked locations" }
+    ]
   },
 
   methods: {
