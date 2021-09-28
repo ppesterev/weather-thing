@@ -16,4 +16,4 @@ export const coordsToString = ({ latt, long }) => {
   return `${fixedLatt} ${NS}, ${fixedLong} ${EW}`;
 };
 
-export const celciusToFahrenheit = (celcius) => (celcius * 5) / 9 + 32;
+export const celciusToFahrenheit = (celcius) => (celcius / 5) * 9 + 32;

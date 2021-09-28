@@ -86,6 +86,7 @@ export default {
 }
 
 .search__field {
+  min-width: 100px;
   padding: 5px 8px 5px 24px;
 
   font: inherit;
