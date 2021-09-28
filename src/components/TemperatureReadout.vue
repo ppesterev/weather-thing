@@ -17,14 +17,14 @@ export default {
     ...mapState({
       scale: (state) => state.tempScale || TempScale.C
     }),
-    formattedTemp: () => {
+    formattedTemp() {
       const displayedValue =
         this.scale === TempScale.C
           ? this.celciusTemp
           : celciusToFahrenheit(this.celciusTemp);
       return displayedValue.toFixed(this.precision);
     },
-    symbol: () => {
+    symbol() {
       return this.scale === TempScale.C ? "°C" : "°F";
     }
   }

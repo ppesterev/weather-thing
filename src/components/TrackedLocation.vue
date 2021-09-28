@@ -9,9 +9,9 @@
         width="100"
         height="100"
       />
-      <strong class="tracked-location__temp"
-        >{{ Math.floor(weather.temp) }} &deg;C</strong
-      >
+      <strong class="tracked-location__temp">
+        <TemperatureReadout :precision="0" :celciusTemp="weather.temp" />
+      </strong>
     </div>
     <div class="tracked-location__loading" v-if="location.isLoading">
       Loading...
@@ -39,12 +39,14 @@ import { mapMutations } from "vuex";
 import { XIcon, CalendarIcon } from "vue-feather-icons";
 
 import BaseButton from "./BaseButton";
+import TemperatureReadout from "./TemperatureReadout.vue";
 
 export default {
   components: {
     BaseButton,
     XIcon,
-    CalendarIcon
+    CalendarIcon,
+    TemperatureReadout
   },
 
   props: {

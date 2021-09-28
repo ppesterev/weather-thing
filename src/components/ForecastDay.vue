@@ -10,13 +10,14 @@
         {{ forecastDay.weatherType }}
       </strong>
 
-      <strong class="forecast-day__temp"
-        >{{ forecastDay.temp.toFixed(1) }} &deg;C</strong
-      >
-      <span class="forecast-day__temp-range"
-        >{{ forecastDay.minTemp.toFixed(1) }} &hellip;
-        {{ forecastDay.maxTemp.toFixed(1) }} &deg;C</span
-      >
+      <strong class="forecast-day__temp">
+        <TemperatureReadout :precision="1" :celciusTemp="forecastDay.temp"
+      /></strong>
+      <span class="forecast-day__temp-range">
+        <TemperatureReadout :precision="1" :celciusTemp="forecastDay.minTemp" />
+        &hellip;
+        <TemperatureReadout :precision="1" :celciusTemp="forecastDay.maxTemp" />
+      </span>
       <img
         class="forecast-day__icon"
         :src="forecastDay.icon"
@@ -48,11 +49,13 @@
 import dayjs from "dayjs";
 
 import { WindIcon, DropletIcon } from "vue-feather-icons";
+import TemperatureReadout from "./TemperatureReadout.vue";
 
 export default {
   components: {
     WindIcon,
-    DropletIcon
+    DropletIcon,
+    TemperatureReadout
   },
 
   props: {
