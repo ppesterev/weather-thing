@@ -77,8 +77,20 @@ export default {
 </script>
 
 <style scoped>
+.forecast-day {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 10px;
+  place-content: start stretch;
+}
+
+.forecast-day__date,
+.forecast-day__basic-info {
+  grid-column: 1 / -1;
+}
+
 .forecast-day__date {
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
 }
 
 .forecast-day__basic-info {
@@ -115,7 +127,6 @@ export default {
 
 .forecast-day__info {
   display: flex;
-  /* justify-content: space-between; */
   gap: 5px;
   align-items: center;
 
@@ -130,7 +141,7 @@ export default {
 }
 
 .forecast-day__confidence {
-  margin-top: 20px;
+  margin-top: 12px;
   color: grey;
   font-size: 0.9em;
   font-style: italic;

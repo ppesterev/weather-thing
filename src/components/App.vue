@@ -21,13 +21,7 @@
         :key="viewedLocation.woeid"
       />
     </transition>
-    <footer class="app__panel app__footer">
-      <div>&copy; ppesterev</div>
-      <div>
-        Weather data kindly provided by
-        <a href="https://www.metaweather.com/">MetaWeather</a>
-      </div>
-    </footer>
+    <AppFooter class="app__panel app__footer" />
   </div>
 </template>
 
@@ -39,6 +33,7 @@ import LocationSearch from "./LocationSearch.vue";
 import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
 import LocationDetails from "./LocationDetails.vue";
+import AppFooter from "./AppFooter.vue";
 
 import { DisplayedList } from "../const";
 
@@ -50,7 +45,8 @@ export default {
     LocationSearch,
     WorldMap,
     TrackedLocationsList,
-    LocationDetails
+    LocationDetails,
+    AppFooter
   },
 
   computed: {
@@ -164,7 +160,6 @@ body {
 
 .app__footer {
   grid-area: footer;
-  padding: 10px;
 
   border-radius: 10px 10px 0 0;
 }

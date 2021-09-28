@@ -133,7 +133,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 9999;
   pointer-events: none;
   box-shadow: inset 10px 0 15px -15px rgb(20, 39, 63);
 }

@@ -73,9 +73,17 @@ export default {
   grid-area: current;
   min-width: 240px;
 
+  padding-right: 3px;
+
   font-size: 18px;
 
   border-right: 1px solid grey;
+}
+
+@media (max-width: 560px) {
+  .location-details__current-weather {
+    border: none;
+  }
 }
 
 .location-details__forecast {
