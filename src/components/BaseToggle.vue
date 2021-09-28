@@ -53,6 +53,10 @@ export default {
 </script>
 
 <style scoped>
+.toggle {
+  box-shadow: 2px 3px 7px -4px black;
+}
+
 .toggle,
 .toggle__option {
   display: flex;
@@ -70,9 +74,8 @@ export default {
   padding: 5px 8px;
 
   color: white;
-  background-color: rgb(76, 138, 189);
+  background-color: rgb(85, 149, 202);
   border-radius: 3px;
-  box-shadow: 1px 2px 5px -3px inset white, -1px -2px 5px -3px inset grey;
   cursor: pointer;
 }
 
@@ -85,7 +88,8 @@ export default {
 }
 
 .toggle__option input:checked + label {
+  position: relative;
+  top: 1px;
   background-color: rgb(53, 103, 143);
-  box-shadow: -1px -2px 5px -3px inset white, 1px 2px 5px -3px inset grey;
 }
 </style>
