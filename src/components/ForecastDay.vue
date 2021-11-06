@@ -80,7 +80,7 @@ export default {
 .forecast-day {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 0 10px;
+  gap: 10px;
   place-content: start stretch;
 }
 
@@ -91,7 +91,7 @@ export default {
 }
 
 .forecast-day__date {
-  margin: 0 0 16px 0;
+  margin: 0;
 }
 
 .forecast-day__basic-info {
@@ -99,6 +99,9 @@ export default {
   grid-template-rows: auto auto;
   grid-template-columns: 50px 1fr;
   grid-gap: 0 10px;
+  padding-bottom: 5px;
+
+  border-bottom: 1px dashed lightgrey;
 }
 
 .forecast-day--today .forecast-day__basic-info {
@@ -128,12 +131,8 @@ export default {
 
 .forecast-day__info {
   display: flex;
-  gap: 5px;
+  gap: 2px;
   align-items: center;
-
-  margin-top: 10px;
-  padding-top: 5px;
-  border-top: 1px dashed lightgrey;
 }
 
 .forecast-day__info-icon {
@@ -142,7 +141,6 @@ export default {
 }
 
 .forecast-day__confidence {
-  margin-top: 12px;
   color: grey;
   font-size: 0.9em;
   font-style: italic;
