@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "gh-pages -d dist -m 'deploy to gh-pages'"
+    "deploy": "npm run build && gh-pages -d dist -m 'deploy to gh-pages'"
   },
   "dependencies": {
     "axios": "0.21.1",
