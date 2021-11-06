@@ -1,5 +1,13 @@
 <template>
-  <div class="tracked-locations" @dragend="dropPosition = null">
+  <div
+    class="tracked-locations"
+    dropzone
+    @dragenter.self="dropPosition = trackedLocations.length"
+    @dragleave="dropPosition = null"
+    @dragover.prevent
+    @drop="onDrop"
+    @dragend="dropPosition = null"
+  >
     <ul
       :class="
         `tracked-locations__list ${
@@ -8,11 +16,13 @@
             : ''
         }`
       "
+      v-if="trackedLocations && trackedLocations.length > 0"
       dropzone
       @dragenter.self="dropPosition = trackedLocations.length"
       @dragleave="dropPosition = null"
       @dragover.prevent
       @drop="onDrop"
+      @dragend="dropPosition = null"
     >
       <li
         v-for="(trackedLocation, index) in trackedLocations"
@@ -37,14 +47,18 @@
         <TrackedLocation :location="trackedLocation" />
       </li>
     </ul>
+    <PlaceholderText v-else class="tracked-locations__placeholder">
+      Drag a search result here or click the Add button to track it
+    </PlaceholderText>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import TrackedLocation from "./TrackedLocation.vue";
+import PlaceholderText from "./PlaceholderText.vue";
 export default {
-  components: { TrackedLocation },
+  components: { TrackedLocation, PlaceholderText },
 
   data() {
     return {
@@ -99,5 +113,10 @@ export default {
   margin: 0;
   padding: 5px;
   list-style: none;
+}
+
+.tracked-locations__placeholder {
+  place-self: start stretch;
+  margin: 10px;
 }
 </style>

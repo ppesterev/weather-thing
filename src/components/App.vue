@@ -20,6 +20,10 @@
         :location="viewedLocation"
         :key="viewedLocation.woeid"
       />
+      <PlaceholderText v-else class="app__details-placeholder">
+        Click the Details button on a tracked location to view the detailed
+        6-day forecast
+      </PlaceholderText>
     </transition>
     <AppFooter class="app__panel app__footer" />
   </div>
@@ -34,6 +38,7 @@ import TrackedLocationsList from "./TrackedLocationsList.vue";
 import WorldMap from "./WorldMap.vue";
 import LocationDetails from "./LocationDetails.vue";
 import AppFooter from "./AppFooter.vue";
+import PlaceholderText from "./PlaceholderText.vue";
 
 import { DisplayedList } from "../const";
 
@@ -46,7 +51,8 @@ export default {
     WorldMap,
     TrackedLocationsList,
     LocationDetails,
-    AppFooter
+    AppFooter,
+    PlaceholderText
   },
 
   computed: {
@@ -157,6 +163,12 @@ body {
 .app__location-details.v-enter-active,
 .app__location-details.v-leave-active {
   transition: all 0.5s ease;
+}
+
+.app__details-placeholder {
+  grid-area: details;
+  place-self: start stretch;
+  margin: 10px;
 }
 
 .app__footer {
