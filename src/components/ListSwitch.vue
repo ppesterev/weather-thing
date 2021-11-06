@@ -17,12 +17,18 @@ export default {
 
   computed: {
     ...mapState({
-      displayedList: (state) => state.displayedList
+      displayedList: (state) => state.displayedList,
+      trackedLocationsCount: (state) => state.trackedLocations.length
     }),
-    listOptions: () => [
-      { value: DisplayedList.SEARCH, label: "Search" },
-      { value: DisplayedList.TRACKED, label: "Tracked locations" }
-    ]
+    listOptions: function() {
+      return [
+        { value: DisplayedList.SEARCH, label: "Search" },
+        {
+          value: DisplayedList.TRACKED,
+          label: `Tracked (${this.trackedLocationsCount})`
+        }
+      ];
+    }
   },
 
   methods: {
