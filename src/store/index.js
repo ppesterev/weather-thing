@@ -12,7 +12,7 @@ export default new Vuex.Store({
   state: initialState,
   getters: {
     getUntrackedSearchResults: (state) =>
-      state.search.results.filter(
+      state.search.results?.filter(
         (result) =>
           !state.trackedLocations.find(
             (tracked) => tracked.woeid === result.woeid

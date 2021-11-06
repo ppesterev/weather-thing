@@ -5,7 +5,7 @@ const initialState = {
   search: {
     isLoading: false,
     lastRequestId: null,
-    results: [],
+    results: null,
     distanceSearchOrigin: null
   },
   trackedLocations: [],
